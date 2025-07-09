@@ -7,6 +7,7 @@ import { format } from 'date-fns';
 
 const TemplateContainer = () => {
   const [currentStep, setCurrentStep] = useState(1);
+  const [selectedTemplate, setSelectedTemplate] = useState<string>('');
 
   const [weddingDetails, setWeddingDetails] = useState({
     groomName: 'Surya',
@@ -26,7 +27,12 @@ const TemplateContainer = () => {
       <StepperHome currentStep={currentStep} setCurrentStep={setCurrentStep} />
 
       {currentStep === 1 && (
-        <TemplateSelction currentStep={currentStep} setCurrentStep={setCurrentStep} />
+        <TemplateSelction
+          currentStep={currentStep}
+          setCurrentStep={setCurrentStep}
+          selectedTemplate={selectedTemplate!}
+          setSelectedTemplate={setSelectedTemplate}
+        />
       )}
       {currentStep === 2 && (
         <TemplateEdit
@@ -34,6 +40,7 @@ const TemplateContainer = () => {
           setCurrentStep={setCurrentStep}
           weddingDetails={weddingDetails}
           setWeddingDetails={setWeddingDetails}
+          selectedTemplate={selectedTemplate!}
         />
       )}
       {currentStep === 3 && (

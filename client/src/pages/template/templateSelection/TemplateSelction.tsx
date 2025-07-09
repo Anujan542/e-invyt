@@ -11,8 +11,10 @@ import { Button } from '@/components/ui/button';
 import { useEffect, useState } from 'react';
 import { CheckCircle } from 'lucide-react';
 
-import thumb from './assets/text.png';
-import video1 from './assets/MyComp.mp4';
+import cinematicThumpnail from './assets/text.png';
+import eligantThumbnail from './assets/eligant.png';
+import Cinematic from './assets/CinematicLove.mp4';
+import Eligant from './assets/EligantBliss.mp4';
 import type { TemplateSelectionProps } from './TemplateSelection.types';
 
 // Template data
@@ -20,28 +22,26 @@ const templates = [
   {
     id: 't1',
     title: 'Cinematic Love',
-    thumbnail: thumb,
-    video: video1,
+    thumbnail: cinematicThumpnail,
+    video: Cinematic,
     type: 'wedding',
   },
   {
     id: 't2',
     title: 'Elegant Bliss',
-    thumbnail: thumb,
-    video: video1,
-    type: 'birthday',
-  },
-  {
-    id: 't3',
-    title: 'Modern Spark',
-    thumbnail: thumb,
-    video: video1,
-    type: 'events',
+    thumbnail: eligantThumbnail,
+    video: Eligant,
+    type: 'wedding',
   },
 ];
 
-export const TemplateSelction = ({ currentStep, setCurrentStep }: TemplateSelectionProps) => {
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+export const TemplateSelction = ({
+  currentStep,
+  setCurrentStep,
+  selectedTemplate,
+  setSelectedTemplate,
+}: TemplateSelectionProps) => {
+  // const [selectedId, setSelectedId] = useState<string | null>(null);
   const [modalVideo, setModalVideo] = useState<string | null>(null);
 
   useEffect(() => {
@@ -76,9 +76,9 @@ export const TemplateSelction = ({ currentStep, setCurrentStep }: TemplateSelect
         {templates.map((template) => (
           <div
             key={template.id}
-            onClick={() => setSelectedId(template.id)}
+            onClick={() => setSelectedTemplate(template.title)}
             className={`group relative w-full max-w-sm overflow-hidden rounded-2xl bg-card shadow-lg transition-all duration-300 ${
-              selectedId === template.id
+              selectedTemplate === template.title
                 ? 'border-2 border-blue-500 shadow-xl'
                 : 'hover:scale-105 hover:shadow-2xl'
             } cursor-pointer`}
@@ -90,7 +90,7 @@ export const TemplateSelction = ({ currentStep, setCurrentStep }: TemplateSelect
                 className="h-full w-full object-cover transition-all duration-300 group-hover:scale-105"
                 style={{ aspectRatio: '9/16' }}
               />
-              {selectedId === template.id && (
+              {selectedTemplate === template.title && (
                 <CheckCircle className="absolute right-3 top-3 text-blue-500 bg-white rounded-full" />
               )}
             </div>
@@ -151,7 +151,7 @@ export const TemplateSelction = ({ currentStep, setCurrentStep }: TemplateSelect
           Prev step
         </Button>
         <Button
-          disabled={!selectedId}
+          disabled={!selectedTemplate}
           // variant="outline"
           className="w-32"
           onClick={() => setCurrentStep((prev) => prev + 1)}

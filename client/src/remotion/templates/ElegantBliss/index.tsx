@@ -1,0 +1,105 @@
+import { AbsoluteFill, Audio, OffthreadVideo, Sequence } from "remotion";
+import Eligant from "./assets/eligant.mp4";
+// import Background from "./assets/Background.mp4";
+import hey from './assets/hey.mp3'
+import { WeddingInvite } from "./WeddingInviteText";
+// import { AnimatedHeart } from "../../components/Effects/AnimatedHeart";
+import { SaveTheDateText } from "./SaveTheDateText";
+import { FadeInOut } from "../../components/Effects/FadeTransition";
+import type { CinematiceProps } from './CinematicLove.types';
+
+const EligantBliss
+ = ({
+  groomName,
+  brideName,
+  groomFamilyInfo,
+  brideFamilyInfo,
+  eventDate,
+  eventVenue,
+  welcomeMessage,
+  color,
+}: CinematiceProps) => {
+  return (
+    <AbsoluteFill style={{ fontFamily: 'Georgia, serif' }}>
+      <Audio src={hey} startFrom={90} />
+      <Sequence durationInFrames={300}>
+        <FadeInOut inDuration={15} outDuration={15} totalDuration={210}>
+          <OffthreadVideo
+            src={Eligant}
+            style={{
+              position: 'absolute',
+              top: 0,
+              width: '100%',
+              height: 'auto',
+            }}
+
+          />
+
+          <WeddingInvite
+            brideName={brideName}
+            groomName={groomName}
+            groomFamilyInfo={groomFamilyInfo}
+            brideFamilyInfo={brideFamilyInfo}
+            eventDate={eventDate}
+            eventVenue={eventVenue}
+            welcomeMessage={welcomeMessage}
+            color={color}
+          />
+        </FadeInOut>
+      </Sequence>
+
+      <Sequence from={200} durationInFrames={195}>
+         <FadeInOut inDuration={15} outDuration={10} totalDuration={179}>
+          <OffthreadVideo
+            src={Eligant}
+            style={{
+              position: 'absolute',
+              top: 0,
+              width: '100%',
+              height: 'auto',
+            }}
+          />
+          <AbsoluteFill
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
+            {/* <AnimatedHeart color={color} /> */}
+            <SaveTheDateText color={color} eventDate={eventDate} />
+          </AbsoluteFill>
+        </FadeInOut>
+      </Sequence>
+
+      {/* <Sequence from={375} durationInFrames={200}>
+        <FadeInOut inDuration={15} outDuration={10} totalDuration={179}>
+          <OffthreadVideo
+            src={Eligant}
+            style={{
+              position: 'absolute',
+              top: 0,
+              width: '100%',
+              height: 'auto',
+            }}
+          />
+          <AbsoluteFill
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
+            <AnimatedHeart color={color} />
+            <SaveTheDateText color={color} eventDate={eventDate} />
+          </AbsoluteFill>
+        </FadeInOut>
+      </Sequence> */}
+    </AbsoluteFill>
+  );
+};
+
+export default EligantBliss
+;

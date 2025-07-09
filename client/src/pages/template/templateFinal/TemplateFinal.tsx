@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import type { TemplateFinalProps } from "./TemplateFinal.types"
 import { Player } from '@remotion/player';
-import CinematicLove from '@/remotion/templates/CinematicLove';
+import CinematicLove from '@/remotion/templates/ElegantBliss';
 
 export const TemplateFinal = ({
   currentStep,

@@ -29,6 +29,7 @@ import type { TemplateEditProps, WeddingDetails } from './TemplateEdit.types';
 import hey from '@/assets/hey.mp3';
 import hey1 from '@/assets/hey.mp3';
 import hey2 from '@/assets/hey.mp3';
+import EligantBliss from '@/remotion/templates/ElegantBliss';
 
 const audios = [
   {
@@ -53,6 +54,7 @@ export const TemplateEdit = ({
   setCurrentStep,
   weddingDetails,
   setWeddingDetails,
+  selectedTemplate,
 }: TemplateEditProps) => {
   const [colorPickerType, setColorPickerType] = useState<'primary' | 'secondary' | null>(null);
 
@@ -60,8 +62,6 @@ export const TemplateEdit = ({
 
   const [selected, setSelected] = useState('');
   const [playingUrl, setPlayingUrl] = useState('');
-
-  // console.log('selected', selected);
 
   const {
     groomName,
@@ -121,6 +121,8 @@ export const TemplateEdit = ({
     }
   };
 
+  console.log('first', selectedTemplate);
+
   return (
     <>
       <section className="bg-muted dark:bg-background py-20">
@@ -129,8 +131,20 @@ export const TemplateEdit = ({
             <div className="md:w-1/3 flex justify-center md:block">
               <div className="sticky top-20">
                 <Player
-                  component={CinematicLove}
-                  durationInFrames={575}
+                  component={
+                    selectedTemplate === 'Cinematic Love'
+                      ? CinematicLove
+                      : selectedTemplate === 'Elegant Bliss'
+                        ? EligantBliss
+                        : CinematicLove
+                  }
+                  durationInFrames={
+                    selectedTemplate === 'Cinematic Love'
+                      ? 575
+                      : selectedTemplate === 'Elegant Bliss'
+                        ? 400
+                        : 500
+                  }
                   compositionWidth={1080}
                   compositionHeight={1920}
                   fps={30}

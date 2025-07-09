@@ -14,4 +14,5 @@ export type TemplateEditProps = {
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
   weddingDetails: WeddingDetails;
   setWeddingDetails: React.Dispatch<React.SetStateAction<WeddingDetails>>;
+  selectedTemplate: string;
 };
