@@ -1,0 +1,7 @@
+import type { WeddingDetails } from '../templateEdit/TemplateEdit.types';
+
+export type TemplateFinalProps = {
+  currentStep: number;
+  setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
+  weddingDetails: WeddingDetails;
+};
