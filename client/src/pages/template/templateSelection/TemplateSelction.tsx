@@ -9,40 +9,22 @@ import {
 } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { useEffect, useState } from 'react';
-import { CheckCircle } from 'lucide-react';
+import { CheckCircle, Loader2 } from 'lucide-react';
 
-import cinematicThumpnail from './assets/text.png';
-import eligantThumbnail from './assets/eligant.png';
-import Cinematic from './assets/CinematicLove.mp4';
-import Eligant from './assets/EligantBliss.mp4';
 import type { TemplateSelectionProps } from './TemplateSelection.types';
-
-// Template data
-const templates = [
-  {
-    id: 't1',
-    title: 'Cinematic Love',
-    thumbnail: cinematicThumpnail,
-    video: Cinematic,
-    type: 'wedding',
-  },
-  {
-    id: 't2',
-    title: 'Elegant Bliss',
-    thumbnail: eligantThumbnail,
-    video: Eligant,
-    type: 'wedding',
-  },
-];
+import { useTemplates } from '@/hooks/useTemplate';
 
 export const TemplateSelction = ({
   currentStep,
   setCurrentStep,
   selectedTemplate,
   setSelectedTemplate,
+  setTemplateId,
+  setTemplatePrice,
 }: TemplateSelectionProps) => {
-  // const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [modalVideo, setModalVideo] = useState<string | null>(null);
+  const [modalVideo, setModalVideo] = useState<string | null>();
+
+  const { data: templates, isLoading } = useTemplates();
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -73,44 +55,52 @@ export const TemplateSelction = ({
 
       {/* Template Cards */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 place-items-center">
-        {templates.map((template) => (
-          <div
-            key={template.id}
-            onClick={() => setSelectedTemplate(template.title)}
-            className={`group relative w-full max-w-sm overflow-hidden rounded-2xl bg-card shadow-lg transition-all duration-300 ${
-              selectedTemplate === template.title
-                ? 'border-2 border-blue-500 shadow-xl'
-                : 'hover:scale-105 hover:shadow-2xl'
-            } cursor-pointer`}
-          >
-            <div className="relative h-48 w-full overflow-hidden">
-              <img
-                src={template.thumbnail}
-                alt={template.title}
-                className="h-full w-full object-cover transition-all duration-300 group-hover:scale-105"
-                style={{ aspectRatio: '9/16' }}
-              />
-              {selectedTemplate === template.title && (
-                <CheckCircle className="absolute right-3 top-3 text-blue-500 bg-white rounded-full" />
-              )}
+        {isLoading ? (
+          <Loader2 />
+        ) : (
+          templates?.map((template) => (
+            <div
+              key={template._id}
+              onClick={() => {
+                setSelectedTemplate(template.name);
+                setTemplateId(template._id);
+                setTemplatePrice(5000);
+              }}
+              className={`group relative w-full max-w-sm overflow-hidden rounded-2xl bg-card shadow-lg transition-all duration-300 ${
+                selectedTemplate === template.name
+                  ? 'border-2 border-blue-500 shadow-xl'
+                  : 'hover:scale-105 hover:shadow-2xl'
+              } cursor-pointer`}
+            >
+              <div className="relative h-48 w-full overflow-hidden">
+                <img
+                  src={template.thumbnailUrl}
+                  alt={template.name}
+                  className="h-full w-full object-cover transition-all duration-300 group-hover:scale-105"
+                  style={{ aspectRatio: '9/16' }}
+                />
+                {selectedTemplate === template.name && (
+                  <CheckCircle className="absolute right-3 top-3 text-blue-500 bg-white rounded-full" />
+                )}
+              </div>
+              <div className="space-y-4 p-6">
+                <h3 className="text-xl text-center font-semibold text-card-foreground">
+                  {template.name}
+                </h3>
+                <Button
+                  type="button"
+                  className="w-full"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setModalVideo(template?.previewVideoUrl);
+                  }}
+                >
+                  View Sample Preview
+                </Button>
+              </div>
             </div>
-            <div className="space-y-4 p-6">
-              <h3 className="text-xl text-center font-semibold text-card-foreground">
-                {template.title}
-              </h3>
-              <Button
-                type="button"
-                className="w-full"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setModalVideo(template.video);
-                }}
-              >
-                View Sample Preview
-              </Button>
-            </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
 
       {/* Preview Modal */}
@@ -144,7 +134,7 @@ export const TemplateSelction = ({
       <div className="flex justify-center space-x-4">
         <Button
           variant="outline"
-          className="w-32"
+          className="w-32 cursor-pointer"
           onClick={() => setCurrentStep((prev) => prev - 1)}
           disabled={currentStep === 1}
         >
@@ -153,7 +143,7 @@ export const TemplateSelction = ({
         <Button
           disabled={!selectedTemplate}
           // variant="outline"
-          className="w-32"
+          className="w-32 cursor-pointer"
           onClick={() => setCurrentStep((prev) => prev + 1)}
           // disabled={currentStep > steps.length}
         >

@@ -121,7 +121,6 @@ export const TemplateEdit = ({
     }
   };
 
-  console.log('first', selectedTemplate);
 
   return (
     <>
@@ -452,7 +451,7 @@ export const TemplateEdit = ({
       <div className="flex justify-center space-x-4">
         <Button
           variant="outline"
-          className="w-32"
+          className="w-32 cursor-pointer"
           onClick={() => setCurrentStep((prev) => prev - 1)}
           disabled={currentStep === 1}
         >
@@ -460,7 +459,7 @@ export const TemplateEdit = ({
         </Button>
         <Button
           variant="outline"
-          className="w-32"
+          className="w-32 cursor-pointer"
           onClick={() => setCurrentStep((prev) => prev + 1)}
         >
           Next step

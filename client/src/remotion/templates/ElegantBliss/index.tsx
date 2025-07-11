@@ -23,33 +23,30 @@ const EligantBliss
     <AbsoluteFill style={{ fontFamily: 'Georgia, serif' }}>
       <Audio src={hey} startFrom={90} />
       <Sequence durationInFrames={300}>
-        <FadeInOut inDuration={15} outDuration={15} totalDuration={210}>
-          <OffthreadVideo
-            src={Eligant}
-            style={{
-              position: 'absolute',
-              top: 0,
-              width: '100%',
-              height: 'auto',
-            }}
+        <OffthreadVideo
+          src={Eligant}
+          style={{
+            position: 'absolute',
+            top: 0,
+            width: '100%',
+            height: 'auto',
+          }}
+        />
 
-          />
-
-          <WeddingInvite
-            brideName={brideName}
-            groomName={groomName}
-            groomFamilyInfo={groomFamilyInfo}
-            brideFamilyInfo={brideFamilyInfo}
-            eventDate={eventDate}
-            eventVenue={eventVenue}
-            welcomeMessage={welcomeMessage}
-            color={color}
-          />
-        </FadeInOut>
+        <WeddingInvite
+          brideName={brideName}
+          groomName={groomName}
+          groomFamilyInfo={groomFamilyInfo}
+          brideFamilyInfo={brideFamilyInfo}
+          eventDate={eventDate}
+          eventVenue={eventVenue}
+          welcomeMessage={welcomeMessage}
+          color={color}
+        />
       </Sequence>
 
       <Sequence from={200} durationInFrames={195}>
-         <FadeInOut inDuration={15} outDuration={10} totalDuration={179}>
+        <FadeInOut inDuration={15} outDuration={10} totalDuration={179}>
           <OffthreadVideo
             src={Eligant}
             style={{

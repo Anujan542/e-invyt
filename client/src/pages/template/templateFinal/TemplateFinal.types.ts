@@ -4,4 +4,6 @@ export type TemplateFinalProps = {
   currentStep: number;
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
   weddingDetails: WeddingDetails;
+  templateId: string;
+  templatePrice: number;
 };

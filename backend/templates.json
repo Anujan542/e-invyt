@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Cinematic Love",
+    "description": "A classy invitation for wedding ceremonies.",
+    "thumbnailUrl": "https://e-invyt.s3.eu-north-1.amazonaws.com/Templates/CinematicLove/text.png",
+    "previewVideoUrl": "https://e-invyt.s3.eu-north-1.amazonaws.com/Templates/CinematicLove/CinematicLove.mp4",
+    "category": "wedding",
+    "isActive": true,
+    "price": 5000,
+    "remotionCompositionId": "elegantWeddingComp"
+  },
+  {
+    "name": "Elegant Bliss",
+    "description": "Perfect for lively birthday parties!",
+    "thumbnailUrl": "https://e-invyt.s3.eu-north-1.amazonaws.com/Templates/EligantBliss/eligant.png",
+    "previewVideoUrl": "https://e-invyt.s3.eu-north-1.amazonaws.com/Templates/EligantBliss/EligantBliss.mp4",
+    "category": "wedding",
+    "isActive": true,
+    "price": 5000,
+    "remotionCompositionId": "funBirthdayComp"
+  }
+]

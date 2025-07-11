@@ -14,6 +14,8 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import ForgotPassword from './components/auth/ForgotPassword';
 import ResetPassword from './components/auth/ResetPassword';
+import NotFound from './pages/not-found/NotFound';
+import SuccessPayment from './pages/payment/SuccessPayment';
 
 const App = () => {
   const location = useLocation();
@@ -103,6 +105,9 @@ const App = () => {
             path="/reset-password/:token"
             element={isAuthorized ? <Navigate to="/" replace /> : <ResetPassword />}
           />
+          <Route path="*" element={<NotFound />} />
+
+          <Route path="/payment-success" element={<SuccessPayment />} />
         </Routes>
       </main>
 

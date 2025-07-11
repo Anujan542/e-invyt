@@ -8,6 +8,8 @@ import { format } from 'date-fns';
 const TemplateContainer = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedTemplate, setSelectedTemplate] = useState<string>('');
+  const [templateId, setTemplateId] = useState<string>('');
+  const [templatePrice, setTemplatePrice] = useState<number>(0);
 
   const [weddingDetails, setWeddingDetails] = useState({
     groomName: 'Surya',
@@ -32,6 +34,8 @@ const TemplateContainer = () => {
           setCurrentStep={setCurrentStep}
           selectedTemplate={selectedTemplate!}
           setSelectedTemplate={setSelectedTemplate}
+          setTemplateId={setTemplateId}
+          setTemplatePrice={setTemplatePrice}
         />
       )}
       {currentStep === 2 && (
@@ -48,6 +52,8 @@ const TemplateContainer = () => {
           currentStep={currentStep}
           setCurrentStep={setCurrentStep}
           weddingDetails={weddingDetails}
+          templateId={templateId}
+          templatePrice={templatePrice}
         />
       )}
     </div>

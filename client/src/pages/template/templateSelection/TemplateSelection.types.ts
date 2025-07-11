@@ -3,4 +3,6 @@ export type TemplateSelectionProps = {
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
   selectedTemplate: string;
   setSelectedTemplate: React.Dispatch<React.SetStateAction<string>>;
+  setTemplateId: React.Dispatch<React.SetStateAction<string>>;
+  setTemplatePrice: React.Dispatch<React.SetStateAction<number>>;
 };
