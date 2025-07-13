@@ -41,13 +41,15 @@
     "remotion": "^4.0.305",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4.1.10",
-    "zustand": "^5.0.6"
+    "zustand": "^5.0.6",
+    "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
     "@types/node": "^24.0.1",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
+    "@types/zxcvbn": "^4.4.5",
     "@vitejs/plugin-react-swc": "^3.9.0",
     "eslint": "^9.25.0",
     "eslint-config-prettier": "^10.1.5",

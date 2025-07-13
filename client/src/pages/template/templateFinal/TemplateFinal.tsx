@@ -2,7 +2,6 @@
 import { Button } from '@/components/ui/button';
 import type { TemplateFinalProps } from './TemplateFinal.types';
 import { Player } from '@remotion/player';
-import CinematicLove from '@/remotion/templates/ElegantBliss';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
@@ -10,6 +9,7 @@ import { customizationTemplate, payHere } from '@/api/customization';
 import toast from 'react-hot-toast';
 import type { customizationTemplateDetails } from '@/api/template.types';
 import { Loader2 } from 'lucide-react';
+import { templateMap } from '@/remotion/Templates';
 
 export const TemplateFinal = ({
   currentStep,
@@ -17,6 +17,8 @@ export const TemplateFinal = ({
   weddingDetails,
   templateId,
   templatePrice,
+  selectedTemplate,
+  audioUrl,
 }: TemplateFinalProps) => {
   const {
     groomName,
@@ -30,6 +32,12 @@ export const TemplateFinal = ({
   } = weddingDetails;
   const navigate = useNavigate();
   const isAuthorized = useAuthStore((state) => state.isAuthorized);
+
+  const SelectedComponent = templateMap[selectedTemplate];
+
+  if (!SelectedComponent) {
+    throw new Error(`Unknown template name: ${name}`);
+  }
 
   const payHereMutation = useMutation({
     mutationFn: payHere,
@@ -88,7 +96,7 @@ export const TemplateFinal = ({
       <div className="mx-auto max-w-5xl px-6 flex flex-row items-center justify-center gap-5">
         <div className="">
           <Player
-            component={CinematicLove}
+            component={SelectedComponent}
             durationInFrames={575}
             compositionWidth={1080}
             compositionHeight={1920}
@@ -111,6 +119,7 @@ export const TemplateFinal = ({
               eventDate: eventDate,
               eventVenue: eventVenue,
               color: templateColor,
+              audio: audioUrl,
             }}
           />
         </div>
@@ -130,14 +139,6 @@ export const TemplateFinal = ({
         >
           Prev step
         </Button>
-        {/* <Button
-          variant="outline"
-          className="w-32"
-          onClick={() => setCurrentStep((prev) => prev + 1)}
-          // disabled={currentStep > steps.length}
-        >
-          Next step
-        </Button> */}
       </div>
     </>
   );

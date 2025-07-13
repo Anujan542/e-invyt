@@ -1,11 +1,11 @@
-import { AbsoluteFill, Audio, OffthreadVideo, Sequence } from "remotion";
-import Cinematic from "./assets/Cinematic.mp4";
-import Background from "./assets/Background.mp4";
-import hey from './assets/hey.mp3'
-import { WeddingInvite } from "./WeddingInviteText";
-import { AnimatedHeart } from "../../components/Effects/AnimatedHeart";
-import { SaveTheDateText } from "./SaveTheDateText";
-import { FadeInOut } from "../../components/Effects/FadeTransition";
+import { AbsoluteFill, Audio, OffthreadVideo, Sequence } from 'remotion';
+import Cinematic from './assets/Cinematic.mp4';
+import Background from './assets/Background.mp4';
+// import hey from '../../components/songs/hey.mp3';
+import { WeddingInvite } from './WeddingInviteText';
+import { AnimatedHeart } from '../../components/Effects/AnimatedHeart';
+import { SaveTheDateText } from './SaveTheDateText';
+import { FadeInOut } from '../../components/Effects/FadeTransition';
 import type { CinematiceProps } from './CinematicLove.types';
 
 const CinematicLove = ({
@@ -17,10 +17,11 @@ const CinematicLove = ({
   eventVenue,
   welcomeMessage,
   color,
+  audio,
 }: CinematiceProps) => {
   return (
     <AbsoluteFill style={{ fontFamily: 'Georgia, serif' }}>
-      <Audio src={hey} startFrom={90} />
+      <Audio src={`${audio}`} startFrom={90} />
       <Sequence durationInFrames={300}>
         <OffthreadVideo
           src={Cinematic}

@@ -3,15 +3,20 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Eye, EyeOff } from 'lucide-react';
 
 import logo from '@/assets/logo.png';
 
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
+import { PasswordStrengthBar } from './PasswordUi/PasswordStrengthBar';
+import { PasswordHints } from './PasswordUi/PasswordHints';
+import zxcvbn from 'zxcvbn';
+import { useState } from 'react';
 
 const ResetPassword = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const { resetPassword } = useAuth();
   const { token } = useParams();
@@ -19,8 +24,13 @@ const ResetPassword = () => {
     register,
     handleSubmit,
     setError,
+    watch,
     formState: { errors },
   } = useForm();
+
+  const password = watch('password') || '';
+
+  const passwordStrength = zxcvbn(password).score;
 
   const { mutateAsync, isPending } = resetPassword;
 
@@ -68,10 +78,31 @@ const ResetPassword = () => {
 
           <div className="mt-6 space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="password" className="block text-sm">
-                New Password
-              </Label>
-              <Input type="password" required {...register('password')} />
+              <Label htmlFor="password">New Password</Label>
+
+              <div className="relative">
+                <Input
+                  {...register('password')}
+                  type={showPassword ? 'text' : 'password'}
+                  className="pr-10" // add space for the icon
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-800 dark:hover:text-white cursor-pointer"
+                  tabIndex={-1}
+                >
+                  {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                </button>
+              </div>
+
+              {password.length > 0 && (
+                <>
+                  <PasswordStrengthBar score={passwordStrength} />
+                  <PasswordHints password={password} />
+                </>
+              )}
             </div>
             <div className="space-y-2">
               <Label htmlFor="confirmPassword" className="block text-sm">

@@ -7,7 +7,6 @@ import {
 } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
 import { Player } from '@remotion/player';
-import CinematicLove from '@/remotion/templates/CinematicLove';
 import { Input } from '@/components/ui/input';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import Sketch from '@uiw/react-color-sketch';
@@ -26,28 +25,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import type { TemplateEditProps, WeddingDetails } from './TemplateEdit.types';
-import hey from '@/assets/hey.mp3';
-import hey1 from '@/assets/hey.mp3';
-import hey2 from '@/assets/hey.mp3';
-import EligantBliss from '@/remotion/templates/ElegantBliss';
-
-const audios = [
-  {
-    value: 'wedding',
-    label: 'Celebration',
-    url: hey,
-  },
-  {
-    value: 'birthday',
-    label: 'Dance',
-    url: hey1,
-  },
-  {
-    value: 'events',
-    label: 'Party',
-    url: hey2,
-  },
-];
+import { templateMap } from '@/remotion/Templates';
 
 export const TemplateEdit = ({
   currentStep,
@@ -55,12 +33,15 @@ export const TemplateEdit = ({
   weddingDetails,
   setWeddingDetails,
   selectedTemplate,
+  audios,
+  // selectedAudio,
+  setSelectedAudio,
+  audioUrl,
 }: TemplateEditProps) => {
   const [colorPickerType, setColorPickerType] = useState<'primary' | 'secondary' | null>(null);
 
   const [date, setDate] = useState<Date | undefined>(new Date());
 
-  const [selected, setSelected] = useState('');
   const [playingUrl, setPlayingUrl] = useState('');
 
   const {
@@ -104,7 +85,7 @@ export const TemplateEdit = ({
     };
 
   const handleSelect = (value: string) => {
-    setSelected(value);
+    setSelectedAudio(value);
   };
 
   const togglePlay = (id: string) => {
@@ -121,6 +102,11 @@ export const TemplateEdit = ({
     }
   };
 
+  const SelectedComponent = templateMap[selectedTemplate];
+
+  if (!SelectedComponent) {
+    throw new Error(`Unknown template name: ${name}`);
+  }
 
   return (
     <>
@@ -130,13 +116,7 @@ export const TemplateEdit = ({
             <div className="md:w-1/3 flex justify-center md:block">
               <div className="sticky top-20">
                 <Player
-                  component={
-                    selectedTemplate === 'Cinematic Love'
-                      ? CinematicLove
-                      : selectedTemplate === 'Elegant Bliss'
-                        ? EligantBliss
-                        : CinematicLove
-                  }
+                  component={SelectedComponent}
                   durationInFrames={
                     selectedTemplate === 'Cinematic Love'
                       ? 575
@@ -165,7 +145,7 @@ export const TemplateEdit = ({
                     eventDate: eventDate,
                     eventVenue: eventVenue,
                     color: templateColor,
-                    audio: selected,
+                    audio: audioUrl,
                   }}
                 />
               </div>
@@ -390,7 +370,7 @@ export const TemplateEdit = ({
                                   onClick={() => handleSelect(audio.value)}
                                 >
                                   <div>
-                                    <SelectItem value={audio.label}>
+                                    <SelectItem value={audio.value}>
                                       <div className="font-medium">{audio.label}</div>
                                     </SelectItem>
                                     <audio id={audioId} src={audio.url} preload="none" />

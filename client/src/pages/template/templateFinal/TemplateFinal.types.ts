@@ -6,4 +6,6 @@ export type TemplateFinalProps = {
   weddingDetails: WeddingDetails;
   templateId: string;
   templatePrice: number;
+  selectedTemplate: string;
+  audioUrl: string;
 };

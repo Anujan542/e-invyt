@@ -20,6 +20,12 @@ const OrderSchema = new mongoose.Schema(
     },
     paymentGateway: String, // "Stripe", "PayHere", etc.
     transactionId: String,
+    // renderStatus: {
+    //   type: String,
+    //   enum: ["not_started", "rendering", "completed", "failed"],
+    //   default: "not_started",
+    // },
+    // videoUrl: String,
   },
   { timestamps: true }
 );

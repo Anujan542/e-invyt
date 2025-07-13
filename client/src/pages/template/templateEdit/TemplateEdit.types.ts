@@ -9,10 +9,20 @@ export type WeddingDetails = {
   templateColor: string;
 };
 
+export type AudioProps = {
+  value: string;
+  label: string;
+  url: string;
+};
+
 export type TemplateEditProps = {
   currentStep: number;
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
   weddingDetails: WeddingDetails;
   setWeddingDetails: React.Dispatch<React.SetStateAction<WeddingDetails>>;
   selectedTemplate: string;
+  audios: AudioProps[];
+  selectedAudio: string;
+  setSelectedAudio: React.Dispatch<React.SetStateAction<string>>;
+  audioUrl: string;
 };
