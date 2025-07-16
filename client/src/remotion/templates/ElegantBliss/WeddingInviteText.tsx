@@ -52,7 +52,7 @@ export const WeddingInvite = ({
             marginTop: '3rem',
             color: color,
             letterSpacing: '1.5px',
-           fontWeight: 'bolder',
+            fontWeight: 'bolder',
             textTransform: 'uppercase',
           }}
         >
@@ -68,7 +68,7 @@ export const WeddingInvite = ({
             marginTop: '2rem',
             marginBottom: '2rem',
             color: color,
-             fontWeight: 'bolder',
+            fontWeight: 'bolder',
           }}
         >
           {groomName}
@@ -79,7 +79,7 @@ export const WeddingInvite = ({
             fontSize: '2rem',
             textTransform: 'uppercase',
             letterSpacing: '0.2rem',
-             fontWeight: 'bolder',
+            fontWeight: 'bolder',
             color: color,
           }}
         >
@@ -92,7 +92,7 @@ export const WeddingInvite = ({
             fontSize: '10rem',
             fontFamily: 'Great Vibes',
             marginTop: '3rem',
-             fontWeight: 'bolder',
+            fontWeight: 'bolder',
             color: color,
           }}
         >
@@ -105,7 +105,7 @@ export const WeddingInvite = ({
             fontSize: '10rem',
             fontFamily: 'Great Vibes',
             marginTop: '1rem',
-             fontWeight: 'bolder',
+            fontWeight: 'bolder',
             color: color,
           }}
         >
@@ -118,7 +118,7 @@ export const WeddingInvite = ({
             textTransform: 'uppercase',
             letterSpacing: '0.2rem',
             color: color,
-             fontWeight: 'bolder',
+            fontWeight: 'bolder',
           }}
         >
           {brideFamilyInfo}
@@ -131,7 +131,7 @@ export const WeddingInvite = ({
             fontSize: '4rem',
             color: color,
             textTransform: 'uppercase',
-             fontWeight: 'bolder',
+            fontWeight: 'bolder',
           }}
         >
           {eventDate}
@@ -144,7 +144,7 @@ export const WeddingInvite = ({
             color: color,
             textTransform: 'uppercase',
             letterSpacing: '0.2rem',
-             fontWeight: 'bolder',
+            fontWeight: 'bolder',
           }}
         >
           {eventVenue}

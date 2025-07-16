@@ -3,6 +3,10 @@ import { Customization } from "../models/customize.model.js";
 import { Order } from "../models/order.model.js";
 import { User } from "../models/user.model.js";
 import dotenv from "dotenv";
+import {
+  getRenderProgress,
+  renderMediaOnLambda,
+} from "@remotion/lambda/client";
 
 dotenv.config();
 
@@ -63,7 +67,7 @@ export const initiatePayHerePayment = async (req, res) => {
       merchant_id: process.env.PAYHERE_MERCHANT_ID,
       return_url: `${process.env.CLIENT_URL}/payment-success`,
       cancel_url: `${process.env.CLIENT_URL}/payment-cancel`,
-      notify_url: `https://1582219b5328.ngrok-free.app/api/orders/payhere-notify`,
+      notify_url: `https://29fae86813e0.ngrok-free.app/api/orders/payhere-notify`,
       order_id: order._id.toString(),
       items: "E-Invitation Template",
       amount,
@@ -139,5 +143,116 @@ export const handlePayHereNotify = async (req, res) => {
   } catch (err) {
     console.error("Notify error:", err);
     res.status(500).json({ error: "Failed to process PayHere notify" });
+  }
+};
+
+export const triggerRenderVideo = async (req, res) => {
+  const { orderId } = req.params;
+  try {
+    const order = await Order.findById(orderId);
+
+    if (!order || order.status !== "paid") {
+      return res.status(400).json({ error: "Order not paid or not found" });
+    }
+
+    if (order.renderStatus !== "not_started") {
+      return res
+        .status(400)
+        .json({ error: "Render already started or completed" });
+    }
+
+    const customization = await Customization.findById(
+      order.customizationId
+    ).populate("_id");
+    const org = customization.inputs;
+
+    order.renderStatus = "rendering";
+    await order.save();
+
+    const inputDataProps = {
+      name: org.name,
+      duration: org.duration,
+      groomName: org.groomName,
+      brideName: org.brideName,
+      groomFamilyInfo: org.groomFamilyInfo,
+      brideFamilyInfo: org.brideFamilyInfo,
+      welcomeMessage: org.welcomeMessage,
+      eventDate: org.eventDate,
+      eventVenue: org.eventVenue,
+      color: org.templateColor,
+    };
+    order.renderStatus = "rendering";
+    await order.save();
+
+    console.log("inputDataProps", inputDataProps);
+
+    // lambda service ---->
+    const { renderId } = await renderMediaOnLambda({
+      region: "us-east-1",
+      functionName: "remotion-render-4-0-305-mem2048mb-disk2048mb-900sec",
+      composition: "Einvyt",
+      framesPerLambda: 100,
+      serveUrl:
+        "https://remotionlambda-useast1-qzsuscw6q7.s3.us-east-1.amazonaws.com/sites/e-invyt/index.html",
+      inputProps: {
+        name: inputDataProps.name,
+        duration: inputDataProps.duration,
+        groomName: inputDataProps.groomName,
+        brideName: inputDataProps.brideName,
+        groomFamilyInfo: inputDataProps.groomFamilyInfo,
+        brideFamilyInfo: inputDataProps.brideFamilyInfo,
+        welcomeMessage: inputDataProps.welcomeMessage,
+        eventDate: inputDataProps.eventDate,
+        eventVenue: inputDataProps.eventVenue,
+        color: inputDataProps.templateColor,
+      },
+      timeoutInMilliseconds: 800000,
+      codec: "h264",
+      maxRetries: 0,
+      privacy: "public",
+      outName: {
+        key: `renderTemplate/${(Math.random() + 1)
+          .toString(36)
+          .substring(7)}.mp4`,
+        bucketName: "remotionlambda-useast1-qzsuscw6q7",
+      },
+    });
+    order.renderId = renderId;
+    await order.save();
+
+    res.json({ renderId });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Failed to trigger video render" });
+  }
+};
+
+export const renderProgress = async (req, res) => {
+  const { renderId } = req.body;
+
+  try {
+    const progress = await getRenderProgress({
+      renderId: `${renderId}`,
+      bucketName: "remotionlambda-useast1-qzsuscw6q7",
+      functionName: "remotion-render-4-0-305-mem2048mb-disk2048mb-900sec",
+      region: "us-east-1",
+    });
+
+    console.log("error", progress.errors);
+    if (progress.done) {
+      return res.status(progress.fatalErrorEncountered ? 500 : 200).json({
+        videoUrl: progress.outputFile,
+        TotalCost: `$${progress.costs.accruedSoFar}`,
+        Totaltime: Math.floor(progress.timeToFinish / 60000),
+        status: progress.fatalErrorEncountered ? "error" : "success",
+      });
+    } else {
+      return res.status(progress.fatalErrorEncountered ? 500 : 202).json({
+        status: progress.fatalErrorEncountered ? "error" : "success",
+        progress: (progress.overallProgress * 100).toFixed(0),
+      });
+    }
+  } catch (error) {
+    console.error(error);
   }
 };

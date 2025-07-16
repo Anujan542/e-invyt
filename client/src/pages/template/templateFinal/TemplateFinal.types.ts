@@ -8,4 +8,5 @@ export type TemplateFinalProps = {
   templatePrice: number;
   selectedTemplate: string;
   audioUrl: string;
+  templateDuration: number;
 };

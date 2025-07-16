@@ -18,14 +18,21 @@ const OrderSchema = new mongoose.Schema(
       enum: ["pending", "paid", "failed"],
       default: "pending",
     },
-    paymentGateway: String, // "Stripe", "PayHere", etc.
+    paymentGateway: String,
     transactionId: String,
-    // renderStatus: {
-    //   type: String,
-    //   enum: ["not_started", "rendering", "completed", "failed"],
-    //   default: "not_started",
-    // },
-    // videoUrl: String,
+    renderStatus: {
+      type: String,
+      enum: ["not_started", "rendering", "completed", "failed"],
+      default: "not_started",
+    },
+    renderId: {
+      type: String,
+      default: "",
+    },
+    videoUrl: {
+      type: String,
+      default: "",
+    },
   },
   { timestamps: true }
 );

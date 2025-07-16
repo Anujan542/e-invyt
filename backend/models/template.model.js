@@ -9,6 +9,7 @@ const TemplateSchema = new mongoose.Schema(
     category: { type: String, enum: ["wedding", "birthday", "party", "other"] },
     isActive: { type: Boolean, default: true },
     price: { type: Number, default: 0 },
+    duration: { type: Number },
     remotionCompositionId: { type: String, required: true },
   },
   { timestamps: true }

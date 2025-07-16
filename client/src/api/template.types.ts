@@ -1,5 +1,5 @@
 export type TemplateDetails = {
-  _id:string;
+  _id: string;
   name: string;
   description: string;
   thumbnailUrl: string;
@@ -7,6 +7,7 @@ export type TemplateDetails = {
   category: 'wedding' | 'birthday' | 'party' | 'other';
   isActive?: boolean;
   price: number;
+  duration: number;
   remotionCompositionId: string;
 };
 
@@ -19,8 +20,10 @@ export type InvitationDetails = {
   brideFamilyInfo: string;
   welcomeMessage: string;
   eventVenue: string;
-  eventDate: string; 
-  templateColor: string; 
+  eventDate: string;
+  templateColor: string;
+  duration: number;
+  name: string;
 };
 
 export type customizationTemplateDetails = {

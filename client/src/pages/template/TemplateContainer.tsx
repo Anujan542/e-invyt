@@ -29,6 +29,7 @@ const audios = [
 const TemplateContainer = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedTemplate, setSelectedTemplate] = useState<string>('');
+  const [templateDuration, setTemplateDuration] = useState<number>(0);
   const [templateId, setTemplateId] = useState<string>('');
   const [templatePrice, setTemplatePrice] = useState<number>(0);
   const [selectedAudio, setSelectedAudio] = useState(audios[0].value);
@@ -61,6 +62,7 @@ const TemplateContainer = () => {
           setSelectedTemplate={setSelectedTemplate}
           setTemplateId={setTemplateId}
           setTemplatePrice={setTemplatePrice}
+          setTemplateDuration={setTemplateDuration}
         />
       )}
       {currentStep === 2 && (
@@ -85,6 +87,7 @@ const TemplateContainer = () => {
           templatePrice={templatePrice}
           selectedTemplate={selectedTemplate!}
           audioUrl={audioUrl}
+          templateDuration={templateDuration}
         />
       )}
     </div>

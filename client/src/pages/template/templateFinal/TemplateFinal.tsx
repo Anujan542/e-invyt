@@ -19,6 +19,7 @@ export const TemplateFinal = ({
   templatePrice,
   selectedTemplate,
   audioUrl,
+  templateDuration,
 }: TemplateFinalProps) => {
   const {
     groomName,
@@ -36,7 +37,7 @@ export const TemplateFinal = ({
   const SelectedComponent = templateMap[selectedTemplate];
 
   if (!SelectedComponent) {
-    throw new Error(`Unknown template name: ${name}`);
+    throw new Error(`Unknown template name: ${selectedTemplate}`);
   }
 
   const payHereMutation = useMutation({
@@ -83,7 +84,10 @@ export const TemplateFinal = ({
 
   const handleDownload = () => {
     if (isAuthorized) {
-      handleSubmit({ templateId: templateId, inputs: weddingDetails });
+      handleSubmit({
+        templateId: templateId,
+        inputs: { ...weddingDetails, duration: templateDuration, name: selectedTemplate },
+      });
     } else {
       navigate('/login');
     }

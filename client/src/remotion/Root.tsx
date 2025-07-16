@@ -1,20 +1,34 @@
-import { Composition } from "remotion";
+import { Composition, getInputProps } from 'remotion';
 import song from './components/songs/hey.mp3';
 import { templateMap } from './Templates';
 
+type TemplateInputProps = {
+  name: keyof typeof templateMap;
+  duration: number;
+  groomName: string;
+  brideName: string;
+  groomFamilyInfo: string;
+  brideFamilyInfo: string;
+  welcomeMessage: string;
+  eventDate: string;
+  eventVenue: string;
+  color: string;
+  audio: string;
+};
+
 export const RemotionRoot: React.FC = () => {
-  const name = 'Elegant Bliss';
-  const duration = 400;
-  const groomName = 'Anujan';
-  const brideName = 'Niromy';
-  const groomFamilyInfo = 'Son of Mr & Mrs Nesarajah';
-  const brideFamilyInfo = 'Daughter of Mr & Mrs Kanthasamy';
-  const welcomeMessage =
-    'With great pleasure our families invite you to join us for the wedding reception of';
-  const eventDate = '17 | November | 2024';
-  const eventVenue = 'At six clock in the evening';
-  const color = '#EEEEE';
-  const audio = song;
+  const {
+    name,
+    duration,
+    groomName,
+    brideName,
+    groomFamilyInfo,
+    brideFamilyInfo,
+    welcomeMessage,
+    eventDate,
+    eventVenue,
+    color,
+  } = getInputProps() as TemplateInputProps;
 
   const SelectedComponent = templateMap[name];
 
@@ -25,7 +39,7 @@ export const RemotionRoot: React.FC = () => {
   return (
     <>
       <Composition
-        id="MyComp"
+        id="Einvyt"
         component={SelectedComponent}
         durationInFrames={duration}
         fps={30}
@@ -40,7 +54,7 @@ export const RemotionRoot: React.FC = () => {
           eventDate: eventDate,
           eventVenue: eventVenue,
           color: color,
-          audio: audio,
+          audio: song,
         }}
       />
     </>

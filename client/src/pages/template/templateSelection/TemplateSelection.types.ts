@@ -5,4 +5,5 @@ export type TemplateSelectionProps = {
   setSelectedTemplate: React.Dispatch<React.SetStateAction<string>>;
   setTemplateId: React.Dispatch<React.SetStateAction<string>>;
   setTemplatePrice: React.Dispatch<React.SetStateAction<number>>;
+  setTemplateDuration: React.Dispatch<React.SetStateAction<number>>;
 };

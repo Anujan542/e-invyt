@@ -21,6 +21,7 @@ export const TemplateSelction = ({
   setSelectedTemplate,
   setTemplateId,
   setTemplatePrice,
+  setTemplateDuration,
 }: TemplateSelectionProps) => {
   const [modalVideo, setModalVideo] = useState<string | null>();
 
@@ -64,7 +65,8 @@ export const TemplateSelction = ({
               onClick={() => {
                 setSelectedTemplate(template.name);
                 setTemplateId(template._id);
-                setTemplatePrice(5000);
+                setTemplatePrice(template.price);
+                setTemplateDuration(template.duration);
               }}
               className={`group relative w-full max-w-sm overflow-hidden rounded-2xl bg-card shadow-lg transition-all duration-300 ${
                 selectedTemplate === template.name

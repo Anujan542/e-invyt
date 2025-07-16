@@ -67,30 +67,19 @@ const EligantBliss = ({
         </FadeInOut>
       </Sequence>
 
-      {/* <Sequence from={375} durationInFrames={200}>
-        <FadeInOut inDuration={15} outDuration={10} totalDuration={179}>
-          <OffthreadVideo
-            src={Eligant}
-            style={{
-              position: 'absolute',
-              top: 0,
-              width: '100%',
-              height: 'auto',
-            }}
-          />
-          <AbsoluteFill
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              display: 'flex',
-              flexDirection: 'column',
-            }}
-          >
-            <AnimatedHeart color={color} />
-            <SaveTheDateText color={color} eventDate={eventDate} />
-          </AbsoluteFill>
-        </FadeInOut>
-      </Sequence> */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: 20,
+          right: 20,
+          // opacity: 0.3,
+          fontSize: 40,
+          color: 'white',
+          pointerEvents: 'none',
+        }}
+      >
+        © e-invyt.com
+      </div>
     </AbsoluteFill>
   );
 };
