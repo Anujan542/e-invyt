@@ -101,7 +101,7 @@ export const TemplateFinal = ({
         <div className="">
           <Player
             component={SelectedComponent}
-            durationInFrames={575}
+            durationInFrames={templateDuration}
             compositionWidth={1080}
             compositionHeight={1920}
             fps={30}

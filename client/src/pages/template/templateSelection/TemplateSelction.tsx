@@ -70,7 +70,7 @@ export const TemplateSelction = ({
               }}
               className={`group relative w-full max-w-sm overflow-hidden rounded-2xl bg-card shadow-lg transition-all duration-300 ${
                 selectedTemplate === template.name
-                  ? 'border-2 border-blue-500 shadow-xl'
+                  ? 'border-2 border-gray-600 shadow-xl'
                   : 'hover:scale-105 hover:shadow-2xl'
               } cursor-pointer`}
             >
@@ -144,17 +144,12 @@ export const TemplateSelction = ({
         </Button>
         <Button
           disabled={!selectedTemplate}
-          // variant="outline"
           className="w-32 cursor-pointer"
           onClick={() => setCurrentStep((prev) => prev + 1)}
-          // disabled={currentStep > steps.length}
         >
           Next step
         </Button>
       </div>
-      {/* <div className="flex items-end justify-end">
-        <Button disabled={!selectedId}>Next</Button>
-      </div> */}
     </div>
   );
 };

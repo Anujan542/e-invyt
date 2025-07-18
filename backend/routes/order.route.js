@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  getUserOrderDetails,
   handlePayHereNotify,
   initiatePayHerePayment,
   renderProgress,
@@ -12,7 +13,8 @@ const router = express.Router();
 // router.post("/", protectedAuth, createOrder);
 router.post("/payhere", protectedAuth, initiatePayHerePayment);
 router.post("/payhere-notify", handlePayHereNotify);
-router.post("/render-template/:orderId", triggerRenderVideo);
-router.get("/render", renderProgress);
+router.post("/render-template/:orderId", protectedAuth, triggerRenderVideo);
+router.post("/render", protectedAuth, renderProgress);
+router.get("/getOrder", protectedAuth, getUserOrderDetails);
 
 export default router;

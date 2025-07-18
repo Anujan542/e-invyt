@@ -94,6 +94,7 @@ const Signup = () => {
               className="w-full flex justify-center items-center gap-2 cursor-pointer"
               type="submit"
               disabled={isPending}
+              effect="shineHover"
             >
               {isPending && <Loader2 className="animate-spin h-4 w-4" />}
               {isPending ? '' : 'Signup'}

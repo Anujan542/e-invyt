@@ -35,3 +35,7 @@ export type payHereDetails = {
   customizationId: string;
   amount: number;
 };
+
+export type renderProps = {
+  renderId: string;
+};

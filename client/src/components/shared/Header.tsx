@@ -93,15 +93,30 @@ export const Header = () => {
               </div>
               <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3  sm:space-y-0 md:w-fit">
                 {theme === 'system' ? (
-                  <Button size={'icon'} variant={'ghost'} onClick={() => setTheme('dark')}>
+                  <Button
+                    className="cursor-pointer"
+                    size={'icon'}
+                    variant={'ghost'}
+                    onClick={() => setTheme('dark')}
+                  >
                     <Moon />
                   </Button>
                 ) : theme === 'dark' ? (
-                  <Button size={'icon'} variant={'ghost'} onClick={() => setTheme('light')}>
+                  <Button
+                    className="cursor-pointer"
+                    size={'icon'}
+                    variant={'ghost'}
+                    onClick={() => setTheme('light')}
+                  >
                     <Sun />
                   </Button>
                 ) : (
-                  <Button size={'icon'} variant={'ghost'} onClick={() => setTheme('dark')}>
+                  <Button
+                    className="cursor-pointer"
+                    size={'icon'}
+                    variant={'ghost'}
+                    onClick={() => setTheme('dark')}
+                  >
                     <Moon />
                   </Button>
                 )}
@@ -119,10 +134,10 @@ export const Header = () => {
                   </>
                 ) : (
                   <>
-                    <Button variant="outline" size="sm">
+                    <Button className="cursor-pointer" variant="outline" size="sm">
                       <Link to="/login">Login</Link>
                     </Button>
-                    <Button size="sm">
+                    <Button className="cursor-pointer" size="sm">
                       <Link to="/signup">Sign Up</Link>
                     </Button>
                   </>

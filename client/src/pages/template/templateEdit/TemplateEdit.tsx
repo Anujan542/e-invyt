@@ -110,7 +110,7 @@ export const TemplateEdit = ({
 
   return (
     <>
-      <section className="bg-muted dark:bg-background py-20">
+      <section className="bg-muted dark:bg-background py-5">
         <div className="mx-auto max-w-5xl px-4 md:px-6">
           <div className="flex flex-col gap-10 md:flex-row md:gap-16">
             <div className="md:w-1/3 flex justify-center md:block">
@@ -318,7 +318,12 @@ export const TemplateEdit = ({
                             </Button>
                           </PopoverTrigger>
                           <PopoverContent className="w-auto p-0" align="start">
-                            <Calendar mode="single" selected={date} onSelect={handleDateSelect} />
+                            <Calendar
+                              mode="single"
+                              selected={date}
+                              onSelect={handleDateSelect}
+                              captionLayout="dropdown"
+                            />
                           </PopoverContent>
                         </Popover>
                       </div>
@@ -425,26 +430,26 @@ export const TemplateEdit = ({
             </div>
           </div>
         </div>
+        <div className="flex justify-center space-x-10 mt-10">
+          <Button
+            variant="outline"
+            className="w-32 cursor-pointer"
+            onClick={() => setCurrentStep((prev) => prev - 1)}
+            disabled={currentStep === 1}
+          >
+            Prev step
+          </Button>
+          <Button
+            variant="outline"
+            className="w-32 cursor-pointer"
+            onClick={() => setCurrentStep((prev) => prev + 1)}
+          >
+            Next step
+          </Button>
+        </div>
       </section>
 
       {/* steps */}
-      <div className="flex justify-center space-x-4">
-        <Button
-          variant="outline"
-          className="w-32 cursor-pointer"
-          onClick={() => setCurrentStep((prev) => prev - 1)}
-          disabled={currentStep === 1}
-        >
-          Prev step
-        </Button>
-        <Button
-          variant="outline"
-          className="w-32 cursor-pointer"
-          onClick={() => setCurrentStep((prev) => prev + 1)}
-        >
-          Next step
-        </Button>
-      </div>
     </>
   );
 };

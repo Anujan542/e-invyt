@@ -22,6 +22,7 @@
     "@remotion/player": "^4.0.305",
     "@tailwindcss/vite": "^4.1.10",
     "@tanstack/react-query": "^5.81.5",
+    "@tanstack/react-table": "^8.21.3",
     "@uiw/react-color-sketch": "^2.6.0",
     "axios": "^1.10.0",
     "class-variance-authority": "^0.7.1",

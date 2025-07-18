@@ -67,7 +67,7 @@ export const initiatePayHerePayment = async (req, res) => {
       merchant_id: process.env.PAYHERE_MERCHANT_ID,
       return_url: `${process.env.CLIENT_URL}/payment-success`,
       cancel_url: `${process.env.CLIENT_URL}/payment-cancel`,
-      notify_url: `https://29fae86813e0.ngrok-free.app/api/orders/payhere-notify`,
+      notify_url: `${process.env.BACKEND_URL}/api/orders/payhere-notify`,
       order_id: order._id.toString(),
       items: "E-Invitation Template",
       amount,
@@ -151,6 +151,10 @@ export const triggerRenderVideo = async (req, res) => {
   try {
     const order = await Order.findById(orderId);
 
+    if (order.renderStatus === "completed") {
+      return res.status(200).json({ success: true, message: order });
+    }
+
     if (!order || order.status !== "paid") {
       return res.status(400).json({ error: "Order not paid or not found" });
     }
@@ -165,6 +169,7 @@ export const triggerRenderVideo = async (req, res) => {
       order.customizationId
     ).populate("_id");
     const org = customization.inputs;
+    console.log("org", org);
 
     order.renderStatus = "rendering";
     await order.save();
@@ -181,17 +186,13 @@ export const triggerRenderVideo = async (req, res) => {
       eventVenue: org.eventVenue,
       color: org.templateColor,
     };
-    order.renderStatus = "rendering";
-    await order.save();
-
-    console.log("inputDataProps", inputDataProps);
-
+    console.log("ppo", inputDataProps);
     // lambda service ---->
     const { renderId } = await renderMediaOnLambda({
       region: "us-east-1",
       functionName: "remotion-render-4-0-305-mem2048mb-disk2048mb-900sec",
       composition: "Einvyt",
-      framesPerLambda: 100,
+      framesPerLambda: null,
       serveUrl:
         "https://remotionlambda-useast1-qzsuscw6q7.s3.us-east-1.amazonaws.com/sites/e-invyt/index.html",
       inputProps: {
@@ -204,7 +205,7 @@ export const triggerRenderVideo = async (req, res) => {
         welcomeMessage: inputDataProps.welcomeMessage,
         eventDate: inputDataProps.eventDate,
         eventVenue: inputDataProps.eventVenue,
-        color: inputDataProps.templateColor,
+        color: inputDataProps.color,
       },
       timeoutInMilliseconds: 800000,
       codec: "h264",
@@ -220,7 +221,7 @@ export const triggerRenderVideo = async (req, res) => {
     order.renderId = renderId;
     await order.save();
 
-    res.json({ renderId });
+    res.json({ renderId, renderStatus: order.renderStatus });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Failed to trigger video render" });
@@ -238,21 +239,55 @@ export const renderProgress = async (req, res) => {
       region: "us-east-1",
     });
 
-    console.log("error", progress.errors);
+    if (progress.fatalErrorEncountered) {
+      return res.status(500).json({
+        status: "error",
+        error: progress.errors,
+      });
+    }
+
     if (progress.done) {
-      return res.status(progress.fatalErrorEncountered ? 500 : 200).json({
+      // Save final video and update status
+      const order = await Order.findOne({ renderId });
+      if (order) {
+        order.renderStatus = "completed";
+        order.videoUrl = progress.outputFile;
+        await order.save();
+      }
+
+      return res.status(200).json({
+        status: "success",
         videoUrl: progress.outputFile,
-        TotalCost: `$${progress.costs.accruedSoFar}`,
-        Totaltime: Math.floor(progress.timeToFinish / 60000),
-        status: progress.fatalErrorEncountered ? "error" : "success",
+        totalCost: `$${progress.costs.accruedSoFar}`,
+        totalTimeMinutes: Math.floor(progress.timeToFinish / 60000),
       });
     } else {
-      return res.status(progress.fatalErrorEncountered ? 500 : 202).json({
-        status: progress.fatalErrorEncountered ? "error" : "success",
+      return res.status(202).json({
+        status: "in-progress",
         progress: (progress.overallProgress * 100).toFixed(0),
       });
     }
   } catch (error) {
+    console.error("Progress Error:", error);
+    res.status(500).json({ error: "Failed to fetch render progress" });
+  }
+};
+
+export const getUserOrderDetails = async (req, res) => {
+  try {
+    const orders = await Order.find({ userId: req.userId })
+      .populate("customizationId")
+      .sort({ createdAt: -1 });
+
+    if (!orders) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Orders not found" });
+    }
+
+    res.status(200).json({ success: true, message: orders });
+  } catch (error) {
     console.error(error);
+    res.status(400).json({ success: false, message: error.message });
   }
 };

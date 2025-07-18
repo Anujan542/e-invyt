@@ -16,6 +16,8 @@ import ForgotPassword from './components/auth/ForgotPassword';
 import ResetPassword from './components/auth/ResetPassword';
 import NotFound from './pages/not-found/NotFound';
 import SuccessPayment from './pages/payment/SuccessPayment';
+import OrderContainer from './pages/orders/OrderContainer';
+// import { Footer } from './components/shared/Footer';
 
 const App = () => {
   const location = useLocation();
@@ -29,6 +31,7 @@ const App = () => {
 
   useEffect(() => {
     queryClient.invalidateQueries({ queryKey: ['auth'] });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const isResetPasswordRoute = matchPath('/reset-password/:token', location.pathname);
@@ -62,6 +65,8 @@ const App = () => {
           <Route path="/" element={<HeroSection />} />
 
           <Route path="/template-selection" element={<TemplateContainer />} />
+
+          <Route path="/orders" element={<OrderContainer />} />
 
           <Route
             path="/signup"
@@ -110,7 +115,7 @@ const App = () => {
           <Route path="/payment-success" element={<SuccessPayment />} />
         </Routes>
       </main>
-
+      {/* <Footer /> */}
       <Toaster position="top-center" />
     </div>
   );

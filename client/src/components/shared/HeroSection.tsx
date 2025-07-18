@@ -1,11 +1,10 @@
 import { Button } from '@/components/ui/button';
-import { ChevronRight } from 'lucide-react';
+import { ArrowRightIcon } from 'lucide-react';
 import dnaVideo from '@/assets/dna-video.mp4';
 import { useNavigate } from 'react-router-dom';
 
 export const HeroSection = () => {
   const navigate = useNavigate();
-
 
   return (
     <>
@@ -24,11 +23,14 @@ export const HeroSection = () => {
               <div className="mt-8">
                 <Button
                   size="sm"
-                  className="h-12 rounded-full cursor-pointer pl-5 pr-3 text-base"
+                  className="h-12 rounded-full cursor-pointer  pr-3 text-base"
                   onClick={() => navigate('/template-selection')}
+                  effect="expandIcon"
+                  icon={ArrowRightIcon}
+                  iconPlacement="right"
                 >
-                  <span className="text-nowrap">Start E-Invyt</span>
-                  <ChevronRight className="ml-1" />
+                  <span className="text-nowrap">Create E-Invyt</span>
+                  {/* <ChevronRight className="ml-1" /> */}
                 </Button>
               </div>
             </div>

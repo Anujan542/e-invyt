@@ -1,5 +1,5 @@
 import axiosInstance from '@/utils/axios';
-import type { customizationTemplateDetails, payHereDetails } from './template.types';
+import type { customizationTemplateDetails, payHereDetails, renderProps } from './template.types';
 
 export const customizationTemplate = (data: customizationTemplateDetails) =>
   axiosInstance.post('/customize', data);
@@ -8,3 +8,9 @@ export const payHere = (data: payHereDetails) => axiosInstance.post('/orders/pay
 
 export const renderVideo = (orderId: string) =>
   axiosInstance.post(`/orders/render-template/${orderId}`);
+
+export const renderProgress = (data: renderProps) => axiosInstance.post(`/orders/render`, data);
+
+export const getOrderDetails = () => {
+  return axiosInstance.get('/orders/getOrder');
+};
