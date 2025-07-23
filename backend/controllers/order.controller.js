@@ -186,7 +186,6 @@ export const triggerRenderVideo = async (req, res) => {
       eventVenue: org.eventVenue,
       color: org.templateColor,
     };
-    console.log("ppo", inputDataProps);
     // lambda service ---->
     const { renderId } = await renderMediaOnLambda({
       region: "us-east-1",

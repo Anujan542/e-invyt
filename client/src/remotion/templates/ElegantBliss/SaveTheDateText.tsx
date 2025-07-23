@@ -1,5 +1,5 @@
 import { useCurrentFrame, spring, useVideoConfig, interpolate } from 'remotion';
-import type { SaveDayProps } from './CinematicLove.types';
+import type { SaveDayProps } from '../types/wedding.types';
 import { AnimatedEventDate } from '../../components/Effects/AnimatedEventDate';
 
 export const SaveTheDateText = ({ color, eventDate }: SaveDayProps) => {

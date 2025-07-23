@@ -5,7 +5,7 @@ import { WeddingInvite } from './WeddingInviteText';
 import { AnimatedHeart } from '../../components/Effects/AnimatedHeart';
 import { SaveTheDateText } from './SaveTheDateText';
 import { FadeInOut } from '../../components/Effects/FadeTransition';
-import type { CinematiceProps } from './CinematicLove.types';
+import type { WeddingProps } from '../types/wedding.types';
 
 const CinematicLove = ({
   groomName,
@@ -17,7 +17,7 @@ const CinematicLove = ({
   welcomeMessage,
   color,
   audio,
-}: CinematiceProps) => {
+}: WeddingProps) => {
   return (
     <AbsoluteFill style={{ fontFamily: 'Georgia, serif' }}>
       <Audio src={`${audio}`} startFrom={90} />

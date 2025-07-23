@@ -122,7 +122,9 @@ export const TemplateEdit = ({
                       ? 575
                       : selectedTemplate === 'Elegant Bliss'
                         ? 400
-                        : 500
+                        : selectedTemplate === 'Hindu Wedding'
+                          ? 600
+                          : 500
                   }
                   compositionWidth={1080}
                   compositionHeight={1920}

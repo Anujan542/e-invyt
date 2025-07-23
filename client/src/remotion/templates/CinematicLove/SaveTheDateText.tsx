@@ -1,5 +1,5 @@
-import { useCurrentFrame, spring, useVideoConfig } from "remotion";
-import type { SaveDayProps } from './CinematicLove.types';
+import { useCurrentFrame, spring, useVideoConfig } from 'remotion';
+import type { SaveDayProps } from '../types/wedding.types';
 
 export const SaveTheDateText = ({ color, eventDate }: SaveDayProps) => {
   const frame = useCurrentFrame();

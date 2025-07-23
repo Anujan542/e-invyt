@@ -1,7 +1,7 @@
 import { AbsoluteFill, interpolate, useCurrentFrame } from 'remotion';
 
 import './fonts/Text.css';
-import type { CinematiceProps } from './CinematicLove.types';
+import type { WeddingProps } from '../types/wedding.types';
 
 export const WeddingInvite = ({
   groomName,
@@ -12,7 +12,7 @@ export const WeddingInvite = ({
   eventVenue,
   welcomeMessage,
   color,
-}: CinematiceProps) => {
+}: WeddingProps) => {
   const frame = useCurrentFrame();
 
   const fadeIn = (start: number, duration: number) =>

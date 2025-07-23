@@ -20,5 +20,16 @@
     "price": 5000,
     "remotionCompositionId": "funBirthdayComp",
     "duration": 400
+  },
+  {
+    "name": "Hindu Wedding",
+    "description": "Perfect for lively birthday parties!",
+    "thumbnailUrl": "https://e-invyt.s3.eu-north-1.amazonaws.com/Templates/HinduMountain/HinduThubnail.jpg",
+    "previewVideoUrl": "https://e-invyt.s3.eu-north-1.amazonaws.com/Templates/HinduMountain/Hindu.mp4",
+    "category": "wedding",
+    "isActive": true,
+    "price": 5000,
+    "remotionCompositionId": "funBirthdayComp",
+    "duration": 600
   }
 ]

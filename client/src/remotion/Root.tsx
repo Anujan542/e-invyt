@@ -30,6 +30,18 @@ export const RemotionRoot: React.FC = () => {
     color,
   } = getInputProps() as TemplateInputProps;
 
+  // const name = 'Hindu Wedding';
+  // const duration = 600;
+  // const groomName = 'Mathavan';
+  // const brideName = 'Monica';
+  // const groomFamilyInfo = 'Son of Mr & Mrs Arivalakan';
+  // const brideFamilyInfo = 'Daughter of Mr & Mrs Sivakumar';
+  // const welcomeMessage = 'Joyfully invite you to celebrate their wedding day!';
+  // const eventDate = '20 | November | 2025';
+  // const eventVenue = '4 PM at Lee Maridean Hall, Kalmunai-02';
+  // const color = '#00000';
+  // const audio = song;
+
   const SelectedComponent = templateMap[name];
 
   if (!SelectedComponent) {
