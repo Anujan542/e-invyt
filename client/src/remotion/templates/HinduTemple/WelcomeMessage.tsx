@@ -26,7 +26,7 @@ export const WelcomeMessage = ({
       >
         <div
           style={{
-            fontFamily: 'Dancing Script',
+            // fontFamily: 'Dancing Script',
             fontSize: '4rem',
             maxWidth: '850px',
             marginTop: '-10rem',

@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { ArrowRightIcon } from 'lucide-react';
-import dnaVideo from '@/assets/dna-video.mp4';
+import dnaVideo from '@/assets/hero.mp4';
 import { useNavigate } from 'react-router-dom';
 
 export const HeroSection = () => {

@@ -30,13 +30,22 @@ const UserProfile = () => {
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem
+            className="cursor-pointer"
             onClick={() => {
               navigate('/orders');
             }}
           >
             Orders
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => logout.mutate()}>Logout</DropdownMenuItem>
+          <DropdownMenuItem
+            className="cursor-pointer"
+            onClick={() => {
+              logout.mutate();
+              navigate('/');
+            }}
+          >
+            Logout
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </>

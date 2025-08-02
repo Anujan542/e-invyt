@@ -1,10 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import CinematicLove from "./templates/CinematicLove";
-import EligantBliss from "./templates/ElegantBliss";
+import Beach from './templates/Beach';
+import CinematicLove from './templates/CinematicLove';
+import EligantBliss from './templates/ElegantBliss';
 import HinduWedding from './templates/HinduTemple';
+import Peacock from './templates/Peacock';
 
 export const templateMap: Record<string, React.FC<any>> = {
   'Cinematic Love': CinematicLove,
   'Elegant Bliss': EligantBliss,
   'Hindu Wedding': HinduWedding,
+  'Beach Wind': Beach,
+  'Peacock Fly': Peacock,
 };

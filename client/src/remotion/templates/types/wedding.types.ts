@@ -12,6 +12,6 @@ export type WeddingProps = {
 
 export type SaveDayProps = {
   color: string;
-  eventDate: string;
+  eventDate?: string;
   eventVenue?: string;
 };

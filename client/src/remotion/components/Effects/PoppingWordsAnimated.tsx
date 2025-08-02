@@ -31,12 +31,12 @@ export const PoppingWordsAnimated: React.FC<{
           display: 'flex',
           flexWrap: 'wrap',
           justifyContent: 'center',
-          fontSize: '4rem',
+          fontSize: '5rem',
           maxWidth: '850px',
           marginTop: '-10rem',
           fontWeight: 900,
           textTransform: 'uppercase',
-          letterSpacing: '3.5px',
+          // letterSpacing: '3.5px',
           gap: '1rem',
         }}
       >
@@ -64,15 +64,10 @@ export const PoppingWordsAnimated: React.FC<{
               {[...word].map((char, charIndex) => {
                 const charDelay = wordDelay + charIndex * 2;
 
-                const opacity = interpolate(
-                  frame - charDelay,
-                  [0, 5],
-                  [0, 1],
-                  {
-                    extrapolateLeft: 'clamp',
-                    extrapolateRight: 'clamp',
-                  }
-                );
+                const opacity = interpolate(frame - charDelay, [0, 5], [0, 1], {
+                  extrapolateLeft: 'clamp',
+                  extrapolateRight: 'clamp',
+                });
 
                 return (
                   <span

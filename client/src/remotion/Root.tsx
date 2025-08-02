@@ -17,29 +17,29 @@ type TemplateInputProps = {
 };
 
 export const RemotionRoot: React.FC = () => {
-  const {
-    name,
-    duration,
-    groomName,
-    brideName,
-    groomFamilyInfo,
-    brideFamilyInfo,
-    welcomeMessage,
-    eventDate,
-    eventVenue,
-    color,
-  } = getInputProps() as TemplateInputProps;
+  //   const {
+  //     name,
+  //     duration,
+  //     groomName,
+  //     brideName,
+  //     groomFamilyInfo,
+  //     brideFamilyInfo,
+  //     welcomeMessage,
+  //     eventDate,
+  //     eventVenue,
+  //     color,
+  //   } = getInputProps() as TemplateInputProps;
 
-  // const name = 'Hindu Wedding';
-  // const duration = 600;
-  // const groomName = 'Mathavan';
-  // const brideName = 'Monica';
-  // const groomFamilyInfo = 'Son of Mr & Mrs Arivalakan';
-  // const brideFamilyInfo = 'Daughter of Mr & Mrs Sivakumar';
-  // const welcomeMessage = 'Joyfully invite you to celebrate their wedding day!';
-  // const eventDate = '20 | November | 2025';
-  // const eventVenue = '4 PM at Lee Maridean Hall, Kalmunai-02';
-  // const color = '#00000';
+  const name = 'Peacock Fly';
+  const duration = 600;
+  const groomName = 'Shayether';
+  const brideName = 'Dharshika';
+  const groomFamilyInfo = 'Son of Mr & Mrs Kanakarajah';
+  const brideFamilyInfo = 'Daughter of Mr & Mrs Arulanandham';
+  const welcomeMessage = 'Please join us to celebrate the wedding of';
+  const eventDate = 'Wednesday | 20 | November | 2025';
+  const eventVenue = '4 PM at Lee Maridean Hall, Kalmunai-02';
+  const color = '#9C0000';
   // const audio = song;
 
   const SelectedComponent = templateMap[name];
