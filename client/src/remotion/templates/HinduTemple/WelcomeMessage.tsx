@@ -1,16 +1,10 @@
-import { AbsoluteFill} from 'remotion';
+import { AbsoluteFill } from 'remotion';
 
 import './fonts/Text.css';
 import type { WeddingProps } from '../types/wedding.types';
 import { PoppingWordsAnimated } from '../../components/Effects/PoppingWordsAnimated';
 
-export const WelcomeMessage = ({
-  welcomeMessage,
-  color,
-}: WeddingProps) => {
-
-
-
+export const WelcomeMessage = ({ welcomeMessage, color }: WeddingProps) => {
   return (
     <>
       <AbsoluteFill

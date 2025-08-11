@@ -1,9 +1,10 @@
 import { Button } from '@/components/ui/button';
 import type { ColumnDef } from '@tanstack/react-table';
 import { VideoIcon } from 'lucide-react';
+import moment from 'moment';
 
 export type Payment = {
-//   renderId: string;
+  //   renderId: string;
   amountPaid: number;
   status: 'pending' | 'processing' | 'success' | 'failed';
   renderStatus: 'not_started' | 'rendering' | 'completed' | 'failed';
@@ -13,13 +14,10 @@ export type Payment = {
       groomName?: string;
     };
   };
+  createdAt: string;
 };
 
 export const columns: ColumnDef<Payment>[] = [
-//   {
-//     accessorKey: 'renderId',
-//     header: 'ID',
-//   },
   {
     id: 'groomName',
     header: 'Groom Name',
@@ -29,9 +27,18 @@ export const columns: ColumnDef<Payment>[] = [
     },
   },
   {
+    id: 'createdAt',
+    header: 'Date',
+    cell: ({ row }) => {
+      const date = row.original.createdAt;
+      return <span>{moment(date).format('DD-MM-YYYY')}</span>;
+    },
+  },
+  {
     accessorKey: 'amountPaid',
     header: 'Amount',
   },
+
   {
     accessorKey: 'status',
     header: 'Payment Status',

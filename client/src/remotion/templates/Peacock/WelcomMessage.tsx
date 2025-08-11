@@ -1,13 +1,10 @@
-import { AbsoluteFill, interpolate, useCurrentFrame,  } from 'remotion';
+import { AbsoluteFill, interpolate, useCurrentFrame } from 'remotion';
 
 import './fonts/Text.css';
 import type { WeddingProps } from '../types/wedding.types';
 import { PoppingWordsAnimated } from '../../components/Effects/PoppingWordsAnimated';
 
-export const WelcomeMessage = ({
-  welcomeMessage,
-  color,
-}: WeddingProps) => {
+export const WelcomeMessage = ({ welcomeMessage, color }: WeddingProps) => {
   const frame = useCurrentFrame();
 
   const fadeIn = (start: number, duration: number) =>
@@ -15,7 +12,6 @@ export const WelcomeMessage = ({
       extrapolateLeft: 'clamp',
       extrapolateRight: 'clamp',
     });
-
 
   return (
     <>
@@ -41,7 +37,7 @@ export const WelcomeMessage = ({
             fontWeight: 'bolder',
           }}
         >
-             <PoppingWordsAnimated welcomeMessage={`${welcomeMessage}`} color={color} />
+          <PoppingWordsAnimated welcomeMessage={`${welcomeMessage}`} color={color} />
         </div>
       </AbsoluteFill>
     </>

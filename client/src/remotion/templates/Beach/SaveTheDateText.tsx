@@ -1,25 +1,10 @@
 import { useCurrentFrame, spring, useVideoConfig, } from 'remotion';
 import type { SaveDayProps } from '../types/wedding.types';
-// import { AnimatedEventDate } from '../../components/Effects/AnimatedEventDate';
 
 export const SaveTheDateText = ({ color }: SaveDayProps) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // const pop = spring({
-  //   frame,
-  //   fps,
-  //   from: 0,
-  //   to: 1,
-  //   config: {
-  //     damping: 8,
-  //     mass: 0.5,
-  //     stiffness: 120,
-  //   },
-  // });
-
-  // Optional subtle bounce in opacity
-  // const poppingOpacity = interpolate(pop, [0, 1], [0, 1]);
 
   const scale = spring({
     frame,

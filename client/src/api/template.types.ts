@@ -24,6 +24,7 @@ export type InvitationDetails = {
   templateColor: string;
   duration: number;
   name: string;
+  audio: string;
 };
 
 export type customizationTemplateDetails = {

@@ -185,11 +185,12 @@ export const triggerRenderVideo = async (req, res) => {
       eventDate: org.eventDate,
       eventVenue: org.eventVenue,
       color: org.templateColor,
+      audio: org.audio,
     };
     // lambda service ---->
     const { renderId } = await renderMediaOnLambda({
       region: "us-east-1",
-      functionName: "remotion-render-4-0-305-mem2048mb-disk2048mb-900sec",
+      functionName: "remotion-render-4-0-331-mem2048mb-disk2048mb-900sec",
       composition: "Einvyt",
       framesPerLambda: null,
       serveUrl:
@@ -205,6 +206,7 @@ export const triggerRenderVideo = async (req, res) => {
         eventDate: inputDataProps.eventDate,
         eventVenue: inputDataProps.eventVenue,
         color: inputDataProps.color,
+        audio: inputDataProps.audio,
       },
       timeoutInMilliseconds: 800000,
       codec: "h264",
@@ -234,7 +236,7 @@ export const renderProgress = async (req, res) => {
     const progress = await getRenderProgress({
       renderId: `${renderId}`,
       bucketName: "remotionlambda-useast1-qzsuscw6q7",
-      functionName: "remotion-render-4-0-305-mem2048mb-disk2048mb-900sec",
+      functionName: "remotion-render-4-0-331-mem2048mb-disk2048mb-900sec",
       region: "us-east-1",
     });
 

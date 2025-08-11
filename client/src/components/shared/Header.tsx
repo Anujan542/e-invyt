@@ -6,20 +6,14 @@ import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { useTheme } from '../theme-provider';
 import { Moon, Sun } from 'lucide-react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import logo from '@/assets/logo.png';
 import { useAuthStore } from '@/store/useAuthStore';
 // import { useAuth } from '@/hooks/useAuth';
 import UserProfile from '../auth/UserProfile';
 
-// const menuItems = [
-//   { name: 'Features', href: '#link' },
-//   { name: 'Solution', href: '#link' },
-//   { name: 'Pricing', href: '#link' },
-//   { name: 'About', href: '#link' },
-// ];
-
 export const Header = () => {
+  const navigate = useNavigate();
   const [menuState, setMenuState] = React.useState(false);
   const isAuthorized = useAuthStore((state) => state.isAuthorized);
 
@@ -28,6 +22,11 @@ export const Header = () => {
   // const handleLogout =()=>{
   //   logout.mutate()
   // }
+
+  const menuItems = [
+    { name: 'About', href: '/about' },
+    { name: 'Contact Us', href: '/contact' },
+  ];
 
   return (
     <header>
@@ -61,35 +60,32 @@ export const Header = () => {
               </button>
 
               <div className="hidden lg:block">
-                {/* <ul className="flex gap-8 text-sm">
+                <ul className="flex gap-8 text-sm">
                   {menuItems.map((item, index) => (
                     <li key={index}>
                       <div
-                        // href={item.href}
+                        onClick={() => navigate(item.href)}
                         className="text-muted-foreground hover:text-accent-foreground cursor-pointer block duration-150"
                       >
                         <span>{item.name}</span>
                       </div>
                     </li>
                   ))}
-                </ul> */}
+                </ul>
               </div>
             </div>
 
             <div className="bg-background in-data-[state=active]:block lg:in-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent">
               <div className="lg:hidden">
-                {/* <ul className="space-y-6 text-base">
+                <ul className="space-y-6 text-base">
                   {menuItems.map((item, index) => (
                     <li key={index}>
-                      <div
-                        // href={item.href}
-                        className="text-muted-foreground hover:text-accent-foreground cursor-pointer block duration-150"
-                      >
+                      <div className="text-muted-foreground hover:text-accent-foreground cursor-pointer block duration-150">
                         <span>{item.name}</span>
                       </div>
                     </li>
                   ))}
-                </ul> */}
+                </ul>
               </div>
               <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3  sm:space-y-0 md:w-fit">
                 {theme === 'system' ? (

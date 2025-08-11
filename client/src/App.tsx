@@ -17,6 +17,8 @@ import ResetPassword from './components/auth/ResetPassword';
 import NotFound from './pages/not-found/NotFound';
 import SuccessPayment from './pages/payment/SuccessPayment';
 import OrderContainer from './pages/orders/OrderContainer';
+import AboutUs from './pages/about/About';
+import ContactUs from './pages/about/Contact';
 // import { Footer } from './components/shared/Footer';
 
 const App = () => {
@@ -63,6 +65,10 @@ const App = () => {
       <main className="flex-1">
         <Routes>
           <Route path="/" element={<HeroSection />} />
+
+          <Route path="/about" element={<AboutUs />} />
+
+          <Route path="/contact" element={<ContactUs />} />
 
           <Route path="/template-selection" element={<TemplateContainer />} />
 

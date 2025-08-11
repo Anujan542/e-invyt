@@ -26,6 +26,7 @@ import {
 } from '@/components/ui/select';
 import type { TemplateEditProps, WeddingDetails } from './TemplateEdit.types';
 import { templateMap } from '@/remotion/Templates';
+import { LoaderIcon } from 'lucide-react';
 
 export const TemplateEdit = ({
   currentStep,
@@ -43,6 +44,7 @@ export const TemplateEdit = ({
   const [date, setDate] = useState<Date | undefined>(new Date());
 
   const [playingUrl, setPlayingUrl] = useState('');
+  const [loadingUrl, setLoadingUrl] = useState('');
 
   const {
     groomName,
@@ -88,6 +90,19 @@ export const TemplateEdit = ({
     setSelectedAudio(value);
   };
 
+  // const togglePlay = (id: string) => {
+  //   const audioEl = document.getElementById(id) as HTMLAudioElement;
+  //   if (!audioEl) return;
+
+  //   if (playingUrl === id) {
+  //     audioEl.pause();
+  //     setPlayingUrl('');
+  //   } else {
+  //     document.querySelectorAll('audio').forEach((el) => el.pause());
+  //     audioEl.play();
+  //     setPlayingUrl(id);
+  //   }
+  // };
   const togglePlay = (id: string) => {
     const audioEl = document.getElementById(id) as HTMLAudioElement;
     if (!audioEl) return;
@@ -97,8 +112,10 @@ export const TemplateEdit = ({
       setPlayingUrl('');
     } else {
       document.querySelectorAll('audio').forEach((el) => el.pause());
-      audioEl.play();
-      setPlayingUrl(id);
+      setLoadingUrl(id); // Show loader until it can play
+      audioEl.play().catch(() => {
+        setLoadingUrl('');
+      });
     }
   };
 
@@ -124,7 +141,7 @@ export const TemplateEdit = ({
                         ? 400
                         : selectedTemplate === 'Hindu Wedding'
                           ? 600
-                          : 500
+                          : 600
                   }
                   compositionWidth={1080}
                   compositionHeight={1920}
@@ -369,28 +386,44 @@ export const TemplateEdit = ({
                         <SelectContent>
                           <SelectGroup>
                             {audios.map((audio) => {
-                              const audioId = `audio-${audio.value}`;
+                              const audioId = `audio-${audio.name}`;
                               return (
                                 <div
-                                  key={audio.value}
+                                  key={audio.name}
                                   className="flex items-center justify-between p-2 hover:bg-muted cursor-pointer rounded-md"
-                                  onClick={() => handleSelect(audio.value)}
+                                  onClick={() => handleSelect(audio.name)}
                                 >
                                   <div>
-                                    <SelectItem value={audio.value}>
-                                      <div className="font-medium">{audio.label}</div>
+                                    <SelectItem value={audio.name}>
+                                      <div className="font-medium">{audio.name}</div>
                                     </SelectItem>
-                                    <audio id={audioId} src={audio.url} preload="none" />
+                                    <audio
+                                      id={audioId}
+                                      src={audio.url}
+                                      preload="none"
+                                      onCanPlay={() => {
+                                        setPlayingUrl(audioId);
+                                        setLoadingUrl('');
+                                      }}
+                                      onPlaying={() => {
+                                        setLoadingUrl('');
+                                      }}
+                                      onPause={() => {
+                                        if (playingUrl === audioId) setPlayingUrl('');
+                                      }}
+                                    />
                                   </div>
                                   <Button
-                                    className="size-6"
+                                    className="size-6 cursor-pointer"
                                     size="icon"
                                     onClick={(e) => {
                                       e.stopPropagation();
                                       togglePlay(audioId);
                                     }}
                                   >
-                                    {playingUrl === audioId ? (
+                                    {loadingUrl === audioId ? (
+                                      <LoaderIcon className="animate-spin" /> // your spinner icon
+                                    ) : playingUrl === audioId ? (
                                       <DynamicIcon name="pause-circle" />
                                     ) : (
                                       <DynamicIcon name="play-circle" />

@@ -5,11 +5,13 @@ import { renderProgress, renderVideo } from '@/api/customization';
 import { CircularProgress } from '@/components/ui/circularProgress';
 import { Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { FilmReelLoader } from '@/components/shared/FilmReelLoader';
 
 const SuccessPayment = () => {
   const [searchParams] = useSearchParams();
   const orderId = searchParams.get('order_id');
   const hasRendered = useRef(false);
+
   const [renderId, setRenderId] = useState('');
   const [progress, setProgress] = useState<number | null>(null);
   const [videoUrl, setVideoUrl] = useState('');
@@ -17,17 +19,17 @@ const SuccessPayment = () => {
   const triggerRender = useMutation({
     mutationFn: renderVideo,
     onSuccess: (res) => {
-      console.log('first', res.data.message);
       const id = res.data.renderId;
       if (id) {
         setRenderId(id);
+        setProgress(0); // Start progress immediately
       } else if (res.data.message.renderStatus === 'completed') {
         setVideoUrl(res.data.message.videoUrl);
+        setProgress(100);
       }
     },
   });
 
-  // Trigger render once on load
   useEffect(() => {
     if (orderId && !hasRendered.current) {
       hasRendered.current = true;
@@ -81,19 +83,19 @@ const SuccessPayment = () => {
   };
 
   return (
-    <div className="flex items-center min-h-screen px-4 py-12 sm:px-6 md:px-8 lg:px-12 xl:px-16">
+    <div className="flex items-center wrapper">
       <div className="w-full space-y-6 text-center">
-        {videoUrl === '' && (
+        {!videoUrl && (
           <h1 className="text-4xl text-green-600 font-bold tracking-tighter sm:text-5xl">
-            Payment is Success
+            Payment Successful
           </h1>
         )}
 
-        {renderId == '' && <p>Initializing render...</p>}
-        {triggerRender.isError && <p className="text-red-500">Render trigger failed!</p>}
+        {/* Show circular immediately after payment */}
         {progress !== null && progress < 100 && (
-          <div className="max-w-xs mx-auto w-full flex flex-col items-center">
-            <div className="flex items-center gap-1">
+          <div className="max-w-xs mx-auto w-full flex flex-col items-center gap-4">
+            <span className="text-lg font-medium">Rendering your video...</span>
+            <div className="relative">
               <CircularProgress
                 value={progress}
                 size={250}
@@ -103,11 +105,20 @@ const SuccessPayment = () => {
                 labelClassName="text-xl font-bold"
                 renderLabel={(progress) => `${progress}%`}
               />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <FilmReelLoader size={80} />
+              </div>
             </div>
+            {/* <span className="text-sm text-muted-foreground">{progress}% completed</span> */}
           </div>
         )}
+
+        {triggerRender.isError && (
+          <p className="text-red-500 font-medium">Render trigger failed!</p>
+        )}
+
         {videoUrl && (
-          <div className="mb-4">
+          <div className="flex flex-col items-center mb-4">
             <video
               controls
               className="mx-auto w-full max-w-2xl rounded-xl shadow-lg"
@@ -123,10 +134,9 @@ const SuccessPayment = () => {
             </video>
             <Button
               onClick={handleDownload}
-              className="mt-4  text-white px-4 py-2 rounded cursor-pointer"
+              className="mt-4 text-white px-4 py-2 rounded cursor-pointer flex gap-2 items-center"
             >
-              <Download />
-              Download Invitation
+              <Download /> Download Invitation
             </Button>
           </div>
         )}

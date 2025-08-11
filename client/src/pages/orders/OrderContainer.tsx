@@ -16,12 +16,11 @@ const OrderContainer = () => {
     refetchOnWindowFocus: false,
   });
 
-
   if (isLoading) return <div>Loading orders...</div>;
   if (isError) return <div>Failed to load orders.</div>;
 
   return (
-    <div className="flex-1 wrapper container mx-auto py-10">
+    <div className="flex-1 wrapper">
       <DataTable columns={columns} data={data.message as Payment[]} />
     </div>
   );

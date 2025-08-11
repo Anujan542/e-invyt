@@ -8,7 +8,6 @@ export const Main = ({
   brideName,
   groomFamilyInfo,
   brideFamilyInfo,
-  // eventVenue,
   color,
 }: WeddingProps) => {
   const frame = useCurrentFrame();
@@ -46,7 +45,6 @@ export const Main = ({
             transform: `translateX(${slideIn(5, 15, 'left')}px)`,
             fontSize: '10rem',
             fontFamily: 'Great Vibes',
-            // marginBottom: '10rem',
             color: color,
             fontWeight: 'bolder',
           }}
@@ -61,7 +59,6 @@ export const Main = ({
             letterSpacing: '0.2rem',
             fontWeight: 'bolder',
             marginBottom: '4rem',
-            // marginTop: '-20rem',
             color: color,
           }}
         >
@@ -73,8 +70,6 @@ export const Main = ({
             transform: `translateX(${slideIn(20, 15, 'right')}px)`,
             fontSize: '7rem',
             fontFamily: 'Great Vibes',
-            // marginBottom: '10rem',
-            // marginTop: '1rem',
             fontWeight: 'bolder',
             color: color,
           }}
@@ -87,8 +82,6 @@ export const Main = ({
             transform: `translateX(${slideIn(40, 15, 'right')}px)`,
             fontSize: '8rem',
             fontFamily: 'Great Vibes',
-            // marginBottom: '15rem',
-            // marginTop: '-13rem',
             fontWeight: 'bolder',
             color: color,
           }}
@@ -103,27 +96,10 @@ export const Main = ({
             letterSpacing: '0.2rem',
             color: color,
             fontWeight: 'bolder',
-            // marginBottom: '13rem',
-            // marginTop: '-12rem',
           }}
         >
           {brideFamilyInfo}
         </div>
-
-        {/* <div
-          style={{
-            opacity: fadeIn(80, 10),
-            marginBottom: '10rem',
-             marginTop: '-1rem',
-            fontSize: '3rem',
-            color: color,
-            textTransform: 'uppercase',
-            letterSpacing: '0.2rem',
-            fontWeight: 'bolder',
-          }}
-        >
-          {eventVenue}
-        </div> */}
       </AbsoluteFill>
     </>
   );

@@ -10,8 +10,8 @@ export type WeddingDetails = {
 };
 
 export type AudioProps = {
-  value: string;
-  label: string;
+  name: string;
+  label?: string;
   url: string;
 };
 

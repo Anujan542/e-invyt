@@ -78,7 +78,6 @@ export const SaveTheDateText = ({ color, eventVenue }: SaveDayProps) => {
           textAlign: 'center',
           transform: `scale(${scale})`,
           opacity,
-          // marginBottom: '-40rem',
           fontWeight: 'bolder',
         }}
       >

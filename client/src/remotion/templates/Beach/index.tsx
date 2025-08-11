@@ -1,7 +1,6 @@
 import { AbsoluteFill, Audio, OffthreadVideo, Sequence } from 'remotion';
 import beach from './assets/beach.mp4';
 import { EventDate } from './EventDate';
-// import { SaveTheDateText } from './SaveTheDateText';
 import { FadeInOut } from '../../components/Effects/FadeTransition';
 import type { WeddingProps } from '../types/wedding.types';
 import { WelcomeMessage } from './WelcomMessage';

@@ -3,10 +3,8 @@ import peacockFly from './assets/test.mp4';
 import NoPeacock from './assets/pea.mp4';
 import cock from './assets/peacock.jpg';
 import { EventDate } from './EventDate';
-// import { SaveTheDateText } from './SaveTheDateText';
 import { FadeInOut } from '../../components/Effects/FadeTransition';
 import type { WeddingProps } from '../types/wedding.types';
-// import { WelcomeMessage } from './WelcomMessage';
 import { Main } from './Main';
 import { SaveTheDateText } from './SaveTheDateText';
 
@@ -39,7 +37,9 @@ const Peacock = ({
           />
         </Sequence>
         <Sequence from={0} durationInFrames={400}>
-          <EventDate eventDate={eventDate} color={color} welcomeMessage={welcomeMessage} />
+          <FadeInOut inDuration={5} outDuration={10} totalDuration={270}>
+            <EventDate eventDate={eventDate} color={color} welcomeMessage={welcomeMessage} />
+          </FadeInOut>
         </Sequence>
       </Sequence>
 
@@ -67,46 +67,20 @@ const Peacock = ({
             />
           </FadeInOut>
           <Sequence from={100} durationInFrames={200}>
-            {/* <FadeInOut inDuration={5} outDuration={10} totalDuration={179}> */}
-              <AbsoluteFill
-                style={{
-                  position:'absolute',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  display: 'flex',
-                  flexDirection: 'column',
-                }}
-              >
-                <SaveTheDateText color={color!} eventVenue={eventVenue!} />
-              </AbsoluteFill>
-            {/* </FadeInOut> */}
+            <AbsoluteFill
+              style={{
+                position: 'absolute',
+                justifyContent: 'center',
+                alignItems: 'center',
+                display: 'flex',
+                flexDirection: 'column',
+              }}
+            >
+              <SaveTheDateText color={color!} eventVenue={eventVenue!} />
+            </AbsoluteFill>
           </Sequence>
         </FadeInOut>
       </Sequence>
-
-      {/* <Sequence from={450} durationInFrames={150}>
-        <FadeInOut inDuration={15} outDuration={10} totalDuration={179}>
-          <OffthreadVideo
-            src={peacockFly1}
-            style={{
-              position: 'absolute',
-              top: 0,
-              width: '100%',
-              height: 'auto',
-            }}
-          />
-          <AbsoluteFill
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              display: 'flex',
-              flexDirection: 'column',
-            }}
-          >
-            <SaveTheDateText color={color!} eventDate={eventDate!} />
-          </AbsoluteFill>
-        </FadeInOut>
-      </Sequence> */}
 
       <div
         style={{

@@ -10,5 +10,5 @@ export const templateMap: Record<string, React.FC<any>> = {
   'Elegant Bliss': EligantBliss,
   'Hindu Wedding': HinduWedding,
   'Beach Wind': Beach,
-  'Peacock Fly': Peacock,
+  'Feather Fly': Peacock,
 };

@@ -31,5 +31,27 @@
     "price": 5000,
     "remotionCompositionId": "funBirthdayComp",
     "duration": 600
+  },
+  {
+    "name": "Feather Fly",
+    "description": "Perfect for lively birthday parties!",
+    "thumbnailUrl": "https://e-invyt.s3.eu-north-1.amazonaws.com/Templates/Feathers/peacock_thump.jpg",
+    "previewVideoUrl": "https://e-invyt.s3.eu-north-1.amazonaws.com/Templates/Feathers/Peacockfinal.mp4",
+    "category": "wedding",
+    "isActive": true,
+    "price": 2000,
+    "remotionCompositionId": "funBirthdayComp",
+    "duration": 600
+  },
+  {
+    "name": "Beach Wind",
+    "description": "Perfect for lively birthday parties!",
+    "thumbnailUrl": "https://e-invyt.s3.eu-north-1.amazonaws.com/Templates/Beach+Wind/beach_thumb.jpg",
+    "previewVideoUrl": "https://e-invyt.s3.eu-north-1.amazonaws.com/Templates/Beach+Wind/beach.mp4",
+    "category": "wedding",
+    "isActive": true,
+    "price": 2000,
+    "remotionCompositionId": "funBirthdayComp",
+    "duration": 600
   }
 ]

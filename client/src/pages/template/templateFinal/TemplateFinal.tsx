@@ -86,7 +86,12 @@ export const TemplateFinal = ({
     if (isAuthorized) {
       handleSubmit({
         templateId: templateId,
-        inputs: { ...weddingDetails, duration: templateDuration, name: selectedTemplate },
+        inputs: {
+          ...weddingDetails,
+          duration: templateDuration,
+          name: selectedTemplate,
+          audio: audioUrl,
+        },
       });
     } else {
       navigate('/login');
@@ -97,8 +102,8 @@ export const TemplateFinal = ({
 
   return (
     <>
-      <div className="mx-auto max-w-5xl px-6 flex flex-row items-center justify-center gap-5">
-        <div className="">
+      <div className="mx-auto max-w-7xl px-6 flex flex-row items-center justify-center gap-20">
+        <div>
           <Player
             component={SelectedComponent}
             durationInFrames={templateDuration}
@@ -127,22 +132,33 @@ export const TemplateFinal = ({
             }}
           />
         </div>
-        <div className="">
-          <Button className="cursor-pointer" size="lg" onClick={handleDownload}>
-            {isLoading && <Loader2 className="animate-spin h-4 w-4" />}
-            {isLoading ? '' : 'Download'}
-          </Button>
+        <div>
+          <div className="flex flex-col gap-6">
+            <Button
+              className="w-52 cursor-pointer bg-black dark:bg-white text-white dark:text-black hover:scale-105 hover:bg-amber-50 transition-transform"
+              size="lg"
+              // onClick={handleDownload}
+            >
+              Save Draft
+              {/* {isLoading && <Loader2 className="animate-spin h-4 w-4" />}
+              {isLoading ? '' : 'Save Draft'} */}
+            </Button>
+            <Button className="cursor-pointer" size="lg" onClick={handleDownload}>
+              {isLoading && <Loader2 className="animate-spin h-4 w-4" />}
+              {isLoading ? '' : 'Download'}
+            </Button>
+          </div>
+          <div className="flex justify-center space-x-4 mt-5">
+            <Button
+              variant="outline"
+              className="w-32 cursor-pointer"
+              onClick={() => setCurrentStep((prev) => prev - 1)}
+              disabled={currentStep === 1}
+            >
+              Back
+            </Button>
+          </div>
         </div>
-      </div>
-      <div className="flex justify-center space-x-4 mt-5">
-        <Button
-          variant="outline"
-          className="w-32 cursor-pointer"
-          onClick={() => setCurrentStep((prev) => prev - 1)}
-          disabled={currentStep === 1}
-        >
-          Prev step
-        </Button>
       </div>
     </>
   );
