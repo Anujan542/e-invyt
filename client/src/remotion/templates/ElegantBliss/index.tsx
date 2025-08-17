@@ -18,7 +18,7 @@ const EligantBliss = ({
 }: WeddingProps) => {
   return (
     <AbsoluteFill style={{ fontFamily: 'Georgia, serif' }}>
-      <Audio src={`${audio}`} startFrom={90} />
+      <Audio src={`${audio}`} />
       <Sequence durationInFrames={300}>
         <OffthreadVideo
           src={Eligant}
@@ -62,7 +62,7 @@ const EligantBliss = ({
             }}
           >
             {/* <AnimatedHeart color={color} /> */}
-            <SaveTheDateText color={color} eventDate={eventDate} />
+            <SaveTheDateText color={color!} eventDate={eventDate} />
           </AbsoluteFill>
         </FadeInOut>
       </Sequence>

@@ -47,13 +47,26 @@ export const initiatePayHerePayment = async (req, res) => {
     // const amount = 50;
     const formattedAmount = amount.toFixed(2);
 
-    const order = await Order.create({
-      userId: req.userId,
-      customizationId,
-      amountPaid: amount,
-      status: "pending",
-      paymentGateway: "PayHere",
-    });
+    const customizationExist = await Order.findOne({ customizationId });
+
+    let order;
+
+    if (customizationExist) {
+      // Update the existing order
+      customizationExist.amountPaid = amount;
+      customizationExist.status = "pending"; // or keep previous status if needed
+      customizationExist.paymentGateway = "PayHere";
+      order = await customizationExist.save();
+    } else {
+      // Create a new order if it doesn't exist
+      order = await Order.create({
+        userId: req.userId,
+        customizationId,
+        amountPaid: amount,
+        status: "pending",
+        paymentGateway: "PayHere",
+      });
+    }
 
     const hash = generatePayHereHash({
       merchant_id: process.env.PAYHERE_MERCHANT_ID,

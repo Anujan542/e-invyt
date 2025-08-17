@@ -5,7 +5,7 @@ import { Player } from '@remotion/player';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
-import { customizationTemplate, payHere } from '@/api/customization';
+import { customizationTemplate, payHere, updateCustomizationTemplate } from '@/api/customization';
 import toast from 'react-hot-toast';
 import type { customizationTemplateDetails } from '@/api/template.types';
 import { Loader2 } from 'lucide-react';
@@ -20,6 +20,7 @@ export const TemplateFinal = ({
   selectedTemplate,
   audioUrl,
   templateDuration,
+  customizationId,
 }: TemplateFinalProps) => {
   const {
     groomName,
@@ -78,8 +79,76 @@ export const TemplateFinal = ({
     },
   });
 
-  const handleSubmit = (formData: customizationTemplateDetails) => {
-    customizationTemplateMutation.mutate(formData);
+  const customizationDraftTemplateMutation = useMutation({
+    mutationFn: customizationTemplate,
+    onSuccess: async (res) => {
+      const customizationId = res.data._id;
+
+      try {
+        await payHereMutation.mutateAsync({ customizationId, amount: templatePrice });
+        toast.success(
+          'Your data has been saved as a draft. You can download it anytime from the Order section.',
+          {
+            duration: 6000,
+            position: 'top-right',
+          }
+        );
+        navigate('/template-selection');
+      } catch (err: any) {
+        console.error('Payment initiation failed', err);
+        toast.error(err?.response?.data?.message || 'Something went wrong');
+      }
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message || 'Something went wrong');
+    },
+  });
+
+  const updateDraftMutation = useMutation({
+    mutationFn: ({ id, formData }: { id: string; formData: customizationTemplateDetails }) =>
+      updateCustomizationTemplate(id, formData),
+    onSuccess: () => {
+      toast.success('Draft updated successfully!', {
+        duration: 4000,
+        position: 'top-right',
+      });
+      navigate('/template-selection');
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message || 'Failed to update draft');
+    },
+  });
+
+  const handleSubmit = async (formData: customizationTemplateDetails) => {
+    if (customizationId) {
+      // Update existing draft
+      try {
+        const res = await payHereMutation.mutateAsync({ customizationId, amount: templatePrice });
+
+        const formData = res.data.payHereFormData;
+
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = 'https://sandbox.payhere.lk/pay/checkout';
+
+        for (const key in formData) {
+          const input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = key;
+          input.value = formData[key];
+          form.appendChild(input);
+        }
+
+        document.body.appendChild(form);
+        form.submit();
+      } catch (err: any) {
+        console.error('Payment initiation failed', err);
+        toast.error(err?.response?.data?.message || 'Something went wrong');
+      }
+    } else {
+      // Create new
+      customizationTemplateMutation.mutate(formData);
+    }
   };
 
   const handleDownload = () => {
@@ -95,6 +164,16 @@ export const TemplateFinal = ({
       });
     } else {
       navigate('/login');
+    }
+  };
+
+  const handleSaveDraft = (formData: customizationTemplateDetails) => {
+    if (customizationId) {
+      // Update existing draft
+      updateDraftMutation.mutate({ id: customizationId, formData });
+    } else {
+      // Create new draft
+      customizationDraftTemplateMutation.mutate(formData);
     }
   };
 
@@ -137,7 +216,17 @@ export const TemplateFinal = ({
             <Button
               className="w-52 cursor-pointer bg-black dark:bg-white text-white dark:text-black hover:scale-105 hover:bg-amber-50 transition-transform"
               size="lg"
-              // onClick={handleDownload}
+              onClick={() => {
+                handleSaveDraft({
+                  templateId: templateId,
+                  inputs: {
+                    ...weddingDetails,
+                    duration: templateDuration,
+                    name: selectedTemplate,
+                    audio: audioUrl,
+                  },
+                });
+              }}
             >
               Save Draft
               {/* {isLoading && <Loader2 className="animate-spin h-4 w-4" />}

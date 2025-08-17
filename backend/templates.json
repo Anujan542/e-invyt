@@ -53,5 +53,16 @@
     "price": 2000,
     "remotionCompositionId": "funBirthdayComp",
     "duration": 600
+  },
+  {
+    "name": "Mughal Dreams",
+    "description": "Perfect for lively birthday parties!",
+    "thumbnailUrl": "https://e-invyt.s3.eu-north-1.amazonaws.com/Templates/MughalDreams/thump.jpg",
+    "previewVideoUrl": "https://e-invyt.s3.eu-north-1.amazonaws.com/Templates/MughalDreams/taj.mp4",
+    "category": "wedding",
+    "isActive": true,
+    "price": 5000,
+    "remotionCompositionId": "funBirthdayComp",
+    "duration": 500
   }
 ]

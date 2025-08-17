@@ -9,4 +9,5 @@ export type TemplateFinalProps = {
   selectedTemplate: string;
   audioUrl: string;
   templateDuration: number;
+  customizationId: string | null;
 };

@@ -20,7 +20,7 @@ const CinematicLove = ({
 }: WeddingProps) => {
   return (
     <AbsoluteFill style={{ fontFamily: 'Georgia, serif' }}>
-      <Audio src={`${audio}`} startFrom={90} />
+      <Audio src={`${audio}`} />
       <Sequence durationInFrames={300}>
         <OffthreadVideo
           src={Cinematic}
@@ -88,8 +88,8 @@ const CinematicLove = ({
               flexDirection: 'column',
             }}
           >
-            <AnimatedHeart color={color} />
-            <SaveTheDateText color={color} eventDate={eventDate} />
+            <AnimatedHeart color={color!} />
+            <SaveTheDateText color={color!} eventDate={eventDate} />
           </AbsoluteFill>
         </FadeInOut>
       </Sequence>

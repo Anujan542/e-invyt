@@ -1,10 +1,9 @@
 import { Button } from '@/components/ui/button';
 import type { ColumnDef } from '@tanstack/react-table';
-import { VideoIcon } from 'lucide-react';
 import moment from 'moment';
+import { useNavigate } from 'react-router-dom';
 
 export type Payment = {
-  //   renderId: string;
   amountPaid: number;
   status: 'pending' | 'processing' | 'success' | 'failed';
   renderStatus: 'not_started' | 'rendering' | 'completed' | 'failed';
@@ -17,53 +16,69 @@ export type Payment = {
   createdAt: string;
 };
 
-export const columns: ColumnDef<Payment>[] = [
-  {
-    id: 'groomName',
-    header: 'Groom Name',
-    cell: ({ row }) => {
-      const groomName = row.original.customizationId?.inputs?.groomName;
-      return <span>{groomName || <em className="text-gray-400">N/A</em>}</span>;
-    },
-  },
-  {
-    id: 'createdAt',
-    header: 'Date',
-    cell: ({ row }) => {
-      const date = row.original.createdAt;
-      return <span>{moment(date).format('DD-MM-YYYY')}</span>;
-    },
-  },
-  {
-    accessorKey: 'amountPaid',
-    header: 'Amount',
-  },
+export const UseColumns = (): ColumnDef<Payment>[] => {
+  const navigate = useNavigate();
+  const currentStep = 3;
 
-  {
-    accessorKey: 'status',
-    header: 'Payment Status',
-  },
-  {
-    accessorKey: 'renderStatus',
-    header: 'Video Status',
-  },
-  {
-    id: 'actions',
-    header: 'Actions',
-    cell: ({ row }) => {
-      const videoUrl = row.original.videoUrl;
-
-      return videoUrl ? (
-        <Button
-          className="cursor-pointer"
-          size={'icon'}
-          onClick={() => window.open(videoUrl, '_blank')}
-        >
-          <VideoIcon />
-        </Button>
-      ) : (
-        <span className="text-gray-400 italic">No Video</span>
-      );
+  return [
+    {
+      id: 'groomName',
+      header: 'Groom Name',
+      cell: ({ row }) => {
+        const groomName = row.original.customizationId?.inputs?.groomName;
+        return <span>{groomName || <em className="text-gray-400">N/A</em>}</span>;
+      },
     },
-  },
-];
+    {
+      id: 'createdAt',
+      header: 'Date',
+      cell: ({ row }) => {
+        const date = row.original.createdAt;
+        return <span>{moment(date).format('DD-MM-YYYY')}</span>;
+      },
+    },
+    {
+      accessorKey: 'amountPaid',
+      header: 'Amount',
+    },
+    {
+      accessorKey: 'status',
+      header: 'Payment Status',
+    },
+    {
+      accessorKey: 'renderStatus',
+      header: 'Video Status',
+    },
+    {
+      id: 'actions',
+      header: 'Actions',
+      cell: ({ row }) => {
+        const videoUrl = row.original.videoUrl;
+
+        return videoUrl ? (
+          <Button
+            className="cursor-pointer "
+            size={'sm'}
+            onClick={() => window.open(videoUrl, '_blank')}
+          >
+            View Video
+          </Button>
+        ) : (
+          <Button
+            className="cursor-pointer bg-green-700 hover:bg-green-600"
+            onClick={() =>
+              navigate('/template-selection', {
+                state: {
+                  ...row.original,
+                  currentStep,
+                },
+              })
+            }
+          >
+            Edit Video
+          </Button>
+        );
+      },
+    },
+  ];
+};

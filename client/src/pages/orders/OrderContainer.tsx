@@ -1,12 +1,11 @@
-import { columns, type Payment } from './Column';
+import { UseColumns, type Payment } from './Column';
 import { DataTable } from './data-table';
 import { getOrderDetails } from '@/api/customization';
 import { useQuery } from '@tanstack/react-query';
 
-
-
 const OrderContainer = () => {
- const { data, isLoading, isError } = useQuery({
+  const columns = UseColumns();
+  const { data, isLoading, isError } = useQuery({
     queryKey: ['orders'],
     queryFn: async () => {
       const res = await getOrderDetails();

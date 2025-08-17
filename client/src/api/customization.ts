@@ -4,6 +4,10 @@ import type { customizationTemplateDetails, payHereDetails, renderProps } from '
 export const customizationTemplate = (data: customizationTemplateDetails) =>
   axiosInstance.post('/customize', data);
 
+export const updateCustomizationTemplate = (id: string, data: customizationTemplateDetails) => {
+  return axiosInstance.patch(`/customize/${id}`, data);
+};
+
 export const payHere = (data: payHereDetails) => axiosInstance.post('/orders/payhere', data);
 
 export const renderVideo = (orderId: string) =>
