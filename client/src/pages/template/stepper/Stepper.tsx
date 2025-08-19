@@ -34,12 +34,11 @@ export const StepperHome = ({ currentStep, setCurrentStep }: StepperProps) => {
           {steps.map(({ step, label }) => (
             <StepperItem key={step} step={step} className="not-last:flex-1">
               <StepperTrigger asChild>
-                <div className="flex flex-col items-center gap-1 cursor-pointer">
-                  <div className="flex items-center justify-center gap-1 text-sm font-medium">
-                    {/* {icon} */}
-                    {label}
-                  </div>
+                <div className="flex items-center gap-2 cursor-pointer">
+                  {/* Number */}
                   <StepperIndicator />
+                  {/* Label */}
+                  <span className="text-sm font-medium">{label}</span>
                 </div>
               </StepperTrigger>
               {step < steps.length && <StepperSeparator />}

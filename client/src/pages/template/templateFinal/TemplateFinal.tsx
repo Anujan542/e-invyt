@@ -57,7 +57,7 @@ export const TemplateFinal = ({
 
         const form = document.createElement('form');
         form.method = 'POST';
-        form.action = 'https://sandbox.payhere.lk/pay/checkout';
+        form.action = `${import.meta.env.VITE_PAYMENT_GATEWAY}/pay/checkout`;
 
         for (const key in formData) {
           const input = document.createElement('input');
@@ -129,7 +129,7 @@ export const TemplateFinal = ({
 
         const form = document.createElement('form');
         form.method = 'POST';
-        form.action = 'https://sandbox.payhere.lk/pay/checkout';
+        form.action = `${import.meta.env.VITE_PAYMENT_GATEWAY}/pay/checkout`;
 
         for (const key in formData) {
           const input = document.createElement('input');
@@ -210,7 +210,11 @@ export const TemplateFinal = ({
               audio: audioUrl,
             }}
           />
+          <div className="absolute mt-60 flex items-center justify-center pointer-events-none opacity-70">
+            <span className="text-xl md:text-xl lg:text-3xl text-black">E-Invyt Preview</span>
+          </div>
         </div>
+
         <div>
           <div className="flex flex-col gap-6">
             <Button

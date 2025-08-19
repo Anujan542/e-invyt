@@ -82,7 +82,7 @@ export const TemplateSelction = ({
                   style={{ aspectRatio: '9/16' }}
                 />
                 {selectedTemplate === template.name && (
-                  <CheckCircle className="absolute right-3 top-3 text-blue-500 bg-white rounded-full" />
+                  <CheckCircle className="absolute right-3 top-3 text-red-500 bg-white rounded-full" />
                 )}
               </div>
               <div className="space-y-4 p-6">

@@ -92,7 +92,7 @@ export const initiatePayHerePayment = async (req, res) => {
       address: "123, Main Street",
       city: "Colombo",
       country: "Sri Lanka",
-      sandbox: true,
+      // sandbox: false,
       hash,
     };
 
@@ -182,7 +182,6 @@ export const triggerRenderVideo = async (req, res) => {
       order.customizationId
     ).populate("_id");
     const org = customization.inputs;
-    console.log("org", org);
 
     order.renderStatus = "rendering";
     await order.save();
@@ -200,14 +199,14 @@ export const triggerRenderVideo = async (req, res) => {
       color: org.templateColor,
       audio: org.audio,
     };
+
     // lambda service ---->
     const { renderId } = await renderMediaOnLambda({
       region: "us-east-1",
-      functionName: "remotion-render-4-0-331-mem2048mb-disk2048mb-900sec",
+      functionName: `${process.env.REMOTION_FUNCTION_NAME}`,
       composition: "Einvyt",
       framesPerLambda: null,
-      serveUrl:
-        "https://remotionlambda-useast1-qzsuscw6q7.s3.us-east-1.amazonaws.com/sites/e-invyt/index.html",
+      serveUrl: `${process.env.REMOTION_SERVE_URL}`,
       inputProps: {
         name: inputDataProps.name,
         duration: inputDataProps.duration,
@@ -223,13 +222,13 @@ export const triggerRenderVideo = async (req, res) => {
       },
       timeoutInMilliseconds: 800000,
       codec: "h264",
-      maxRetries: 0,
+      maxRetries: 2,
       privacy: "public",
       outName: {
         key: `renderTemplate/${(Math.random() + 1)
           .toString(36)
           .substring(7)}.mp4`,
-        bucketName: "remotionlambda-useast1-qzsuscw6q7",
+        bucketName: `${process.env.REMOTION_BUCKET}`,
       },
     });
     order.renderId = renderId;
@@ -248,8 +247,8 @@ export const renderProgress = async (req, res) => {
   try {
     const progress = await getRenderProgress({
       renderId: `${renderId}`,
-      bucketName: "remotionlambda-useast1-qzsuscw6q7",
-      functionName: "remotion-render-4-0-331-mem2048mb-disk2048mb-900sec",
+      bucketName: `${process.env.REMOTION_BUCKET}`,
+      functionName: `${process.env.REMOTION_FUNCTION_NAME}`,
       region: "us-east-1",
     });
 

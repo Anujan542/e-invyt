@@ -1,6 +1,6 @@
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { useTheme } from '../theme-provider';
@@ -13,12 +13,13 @@ import UserProfile from '../auth/UserProfile';
 export const Header = () => {
   // const navigate = useNavigate();
   // const location = useLocation();
-  const [menuState, setMenuState] = React.useState(false);
+  const [menuState, setMenuState] = useState(false);
   const isAuthorized = useAuthStore((state) => state.isAuthorized);
 
   const { theme, setTheme } = useTheme();
 
   const menuItems = [
+    { name: 'Home', href: '/template-selection' },
     { name: 'About', href: '/about' },
     { name: 'Contact Us', href: '/contact' },
   ];

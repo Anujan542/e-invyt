@@ -86,9 +86,18 @@ const SuccessPayment = () => {
     <div className="flex items-center wrapper">
       <div className="w-full space-y-6 text-center">
         {!videoUrl && (
-          <h1 className="text-4xl text-green-600 font-bold tracking-tighter sm:text-5xl">
-            Payment Successful
-          </h1>
+          <>
+            <h1 className="text-4xl text-green-600 font-bold tracking-tighter sm:text-5xl">
+              Payment Successful
+            </h1>
+          </>
+        )}
+
+        {progress === null && (
+          <div className="">
+            <h4>Please wait..</h4>
+            <FilmReelLoader size={80} />
+          </div>
         )}
 
         {/* Show circular immediately after payment */}
@@ -105,9 +114,6 @@ const SuccessPayment = () => {
                 labelClassName="text-xl font-bold"
                 renderLabel={(progress) => `${progress}%`}
               />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <FilmReelLoader size={80} />
-              </div>
             </div>
             {/* <span className="text-sm text-muted-foreground">{progress}% completed</span> */}
           </div>
