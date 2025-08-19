@@ -25,4 +25,5 @@ export type TemplateEditProps = {
   selectedAudio: string;
   setSelectedAudio: React.Dispatch<React.SetStateAction<string>>;
   audioUrl: string;
+  templateDuration: number;
 };

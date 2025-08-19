@@ -1,5 +1,10 @@
 import axiosInstance from '@/utils/axios';
-import type { customizationTemplateDetails, payHereDetails, renderProps } from './template.types';
+import type {
+  customizationTemplateDetails,
+  Feedbackprops,
+  payHereDetails,
+  renderProps,
+} from './template.types';
 
 export const customizationTemplate = (data: customizationTemplateDetails) =>
   axiosInstance.post('/customize', data);
@@ -18,3 +23,5 @@ export const renderProgress = (data: renderProps) => axiosInstance.post(`/orders
 export const getOrderDetails = () => {
   return axiosInstance.get('/orders/getOrder');
 };
+
+export const sendFeedback = (data: Feedbackprops) => axiosInstance.post('/contact', data);

@@ -1,4 +1,3 @@
-// import { Logo } from '@/components/logo'
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import React from 'react';
@@ -6,22 +5,18 @@ import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { useTheme } from '../theme-provider';
 import { Moon, Sun } from 'lucide-react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import logo from '@/assets/logo.png';
 import { useAuthStore } from '@/store/useAuthStore';
-// import { useAuth } from '@/hooks/useAuth';
 import UserProfile from '../auth/UserProfile';
 
 export const Header = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  // const location = useLocation();
   const [menuState, setMenuState] = React.useState(false);
   const isAuthorized = useAuthStore((state) => state.isAuthorized);
 
   const { theme, setTheme } = useTheme();
-
-  // const handleLogout =()=>{
-  //   logout.mutate()
-  // }
 
   const menuItems = [
     { name: 'About', href: '/about' },
@@ -61,14 +56,21 @@ export const Header = () => {
 
               <div className="hidden lg:block">
                 <ul className="flex gap-8 text-sm">
-                  {menuItems.map((item, index) => (
-                    <li key={index}>
-                      <div
-                        onClick={() => navigate(item.href)}
-                        className="text-muted-foreground hover:text-accent-foreground cursor-pointer block duration-150"
+                  {menuItems.map((item) => (
+                    <li key={item.href}>
+                      <NavLink
+                        to={item.href}
+                        className={({ isActive }) =>
+                          cn(
+                            'block duration-150',
+                            isActive
+                              ? 'text-accent-foreground font-semibold '
+                              : 'text-muted-foreground hover:text-accent-foreground'
+                          )
+                        }
                       >
-                        <span>{item.name}</span>
-                      </div>
+                        {item.name}
+                      </NavLink>
                     </li>
                   ))}
                 </ul>
@@ -78,11 +80,22 @@ export const Header = () => {
             <div className="bg-background in-data-[state=active]:block lg:in-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent">
               <div className="lg:hidden">
                 <ul className="space-y-6 text-base">
-                  {menuItems.map((item, index) => (
-                    <li key={index}>
-                      <div className="text-muted-foreground hover:text-accent-foreground cursor-pointer block duration-150">
-                        <span>{item.name}</span>
-                      </div>
+                  {menuItems.map((item) => (
+                    <li key={item.href}>
+                      <NavLink
+                        to={item.href}
+                        className={({ isActive }) =>
+                          cn(
+                            'block duration-150',
+                            isActive
+                              ? 'text-accent-foreground font-semibold '
+                              : 'text-muted-foreground hover:text-accent-foreground'
+                          )
+                        }
+                        onClick={() => setMenuState(!menuState)}
+                      >
+                        {item.name}
+                      </NavLink>
                     </li>
                   ))}
                 </ul>
@@ -118,14 +131,6 @@ export const Header = () => {
                 )}
                 {isAuthorized ? (
                   <>
-                    {/* <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => logout.mutate()}
-                      disabled={logout.isPending}
-                    >
-                      Logout
-                    </Button> */}
                     <UserProfile />
                   </>
                 ) : (

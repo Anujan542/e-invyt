@@ -40,3 +40,9 @@ export type payHereDetails = {
 export type renderProps = {
   renderId: string;
 };
+
+export type Feedbackprops = {
+  name: string;
+  email: string;
+  message: string;
+};

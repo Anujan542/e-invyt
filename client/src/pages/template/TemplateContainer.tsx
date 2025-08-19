@@ -93,6 +93,7 @@ const TemplateContainer = () => {
           selectedAudio={selectedAudio}
           setSelectedAudio={setSelectedAudio}
           audioUrl={audioUrl}
+          templateDuration={templateDuration}
         />
       )}
       {currentStep === 3 && (

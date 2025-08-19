@@ -3,9 +3,23 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { sendFeedback } from '@/api/customization';
+import { useMutation } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
 
 const ContactUs = () => {
   const [form, setForm] = useState({ name: '', email: '', message: '' });
+
+  const sendFeedbackMutation = useMutation({
+    mutationFn: sendFeedback,
+    onSuccess: () => {
+      toast.success('Feedback sent successfully 🎉');
+      setForm({ name: '', email: '', message: '' });
+    },
+    onError: () => {
+      toast.error('Failed to send feedback ❌');
+    },
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -13,8 +27,7 @@ const ContactUs = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Send data to your backend or email service
-    console.log('Form submitted:', form);
+    sendFeedbackMutation.mutate(form);
   };
 
   return (
@@ -96,9 +109,15 @@ const ContactUs = () => {
             value={form.message}
             onChange={handleChange}
             required
+            rows={10}
           />
-          <Button effect="gooeyLeft" type="submit" className="w-full">
-            Send Message
+          <Button
+            effect="gooeyLeft"
+            type="submit"
+            className="w-full cursor-pointer items-center flex justify-center"
+            disabled={form.name === '' || form.email === '' || form.message === ''}
+          >
+            {sendFeedbackMutation.isPending ? 'Sending...' : 'Send Feedback'}
           </Button>
         </motion.form>
       </motion.div>

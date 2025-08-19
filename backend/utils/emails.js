@@ -1,5 +1,6 @@
 import { mailTrapClient, sender } from "../config/mailtrap.config.js";
 import {
+  CONTACT_MESSAGE_TEMPLATE,
   PASSWORD_RESET_REQUEST_TEMPLATE,
   PASSWORD_RESET_SUCCESS_TEMPLATE,
   VERIFICATION_EMAIL_TEMPLATE,
@@ -77,3 +78,35 @@ export const sendResetSuccessEmail = async (email) => {
     throw new Error(`Error sending password reset success email: ${error}`);
   }
 };
+
+export const sendContacts = async (name, email, message) => {
+  // const sender = {
+  //   email: "no-reply@yourdomain.com", // must be verified in Mailtrap
+  //   name: "Einvyt App",
+  // };
+
+  const recipient = [{ email: "einvyt@gmail.com", name: "Admin" }];
+
+  try {
+    const response = await mailTrapClient.send({
+      from: sender,
+      to: recipient,
+      subject: "Customer Feedbacks",
+      html: CONTACT_MESSAGE_TEMPLATE.replace("{name}", name)
+        .replace("{email}", email)
+        .replace("{messageHtml}", message),
+      category: "Feedbacks",
+    });
+
+    console.log("Mail sent successfully:", response);
+    return response;
+  } catch (error) {
+    console.error(
+      "Error sending feedback email:",
+      error.response?.data || error
+    );
+    throw new Error("Error sending feedback email");
+  }
+};
+
+

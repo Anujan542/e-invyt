@@ -93,3 +93,30 @@ export const PASSWORD_RESET_REQUEST_TEMPLATE = `
 </body>
 </html>
 `;
+
+export const CONTACT_MESSAGE_TEMPLATE = `
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width">
+<title>New Contact Message</title></head>
+<body style="margin:0;padding:0;background:#f6f7fb;font-family:Arial,Helvetica,sans-serif;color:#222;">
+  <div style="max-width:600px;margin:0 auto;padding:24px;">
+    <div style="background:linear-gradient(90deg,#111827,#1f2937);padding:20px 24px;border-radius:8px 8px 0 0;text-align:center;">
+      <h1 style="margin:0;font-size:20px;line-height:1.4;color:#fff;">New Contact Message</h1>
+    </div>
+    <div style="background:#fff;border:1px solid #e5e7eb;border-top:0;padding:24px;border-radius:0 0 8px 8px;">
+      <p style="margin:0 0 12px 0;">You’ve received a new message from your contact form.</p>
+      <p style="margin:8px 0;"><strong>Name:</strong> {name}</p>
+      <p style="margin:8px 0;"><strong>Email:</strong> {email}</p>
+      <div style="margin:16px 0;padding:16px;border:1px solid #e5e7eb;border-radius:6px;background:#fafafa;">
+        <div style="color:#6b7280;margin-bottom:8px;">Message</div>
+        <div>{messageHtml}</div>
+      </div>
+    </div>
+    <div style="text-align:center;padding:16px 8px;color:#9ca3af;font-size:12px;">
+      This notification was sent automatically. Please do not reply to this email.
+    </div>
+  </div>
+</body>
+</html>
+`;

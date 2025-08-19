@@ -32,7 +32,7 @@ const AboutUs = () => {
         >
           At <strong>E-Invyt</strong>, we help you create stunning invitation videos in minutes —
           without designers, delays, or complicated tools. Just pick a template, add your details,
-          and render.
+          and download.
         </motion.p>
 
         <motion.p
@@ -41,7 +41,7 @@ const AboutUs = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
         >
-          Our mission is simple: make professional-quality invitations accessible, affordable, and
+          Our mission is simple : make professional-quality invitations accessible, affordable, and
           fast, so you can focus on celebrating life’s big moments.
         </motion.p>
 

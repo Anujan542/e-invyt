@@ -38,6 +38,7 @@ export const TemplateEdit = ({
   // selectedAudio,
   setSelectedAudio,
   audioUrl,
+  templateDuration,
 }: TemplateEditProps) => {
   const [colorPickerType, setColorPickerType] = useState<'primary' | 'secondary' | null>(null);
 
@@ -134,15 +135,7 @@ export const TemplateEdit = ({
               <div className="sticky top-20">
                 <Player
                   component={SelectedComponent}
-                  durationInFrames={
-                    selectedTemplate === 'Cinematic Love'
-                      ? 575
-                      : selectedTemplate === 'Elegant Bliss'
-                        ? 400
-                        : selectedTemplate === 'Hindu Wedding'
-                          ? 600
-                          : 600
-                  }
+                  durationInFrames={templateDuration}
                   compositionWidth={1080}
                   compositionHeight={1920}
                   fps={30}
@@ -203,7 +196,7 @@ export const TemplateEdit = ({
                           </div>
 
                           {/* Font Size & Font Color */}
-                          <div className="flex flex-wrap items-center gap-4">
+                          {/* <div className="flex flex-wrap items-center gap-4">
                             <div className="flex items-center gap-2">
                               <Label
                                 htmlFor="font-size"
@@ -219,7 +212,7 @@ export const TemplateEdit = ({
                                 className="w-[100px]"
                               />
                             </div>
-                          </div>
+                          </div> */}
 
                           {/* Groom Message */}
                           <div className="grid gap-3">
@@ -227,7 +220,7 @@ export const TemplateEdit = ({
                               htmlFor="msg"
                               className="text-sm font-medium text-muted-foreground"
                             >
-                              Family Info
+                              Groom Family Info
                             </Label>
                             <Textarea
                               id="msg"
@@ -256,7 +249,7 @@ export const TemplateEdit = ({
                             />
                           </div>
 
-                          <div className="flex flex-wrap items-center gap-4">
+                          {/* <div className="flex flex-wrap items-center gap-4">
                             <div className="flex items-center gap-2">
                               <Label
                                 htmlFor="font-size"
@@ -272,14 +265,14 @@ export const TemplateEdit = ({
                                 className="w-[100px]"
                               />
                             </div>
-                          </div>
+                          </div> */}
 
                           <div className="grid gap-3">
                             <Label
                               htmlFor="msg"
                               className="text-sm font-medium text-muted-foreground"
                             >
-                              Family Info
+                              Bride Family Info
                             </Label>
                             <Textarea
                               id="msg"

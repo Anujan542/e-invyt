@@ -9,6 +9,7 @@ import authRoutes from "./routes/auth.route.js";
 import templateRoutes from "./routes/template.route.js";
 import customizeRoutes from "./routes/customize.route.js";
 import orderRoutes from "./routes/order.route.js";
+import contactRoutes from "./routes/contact.route.js";
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/templates", templateRoutes);
 app.use("/api/customize", customizeRoutes);
 app.use("/api/orders", orderRoutes);
+app.use("/api/contact", contactRoutes);
 
 const Port = process.env.PORT || 5000;
 
