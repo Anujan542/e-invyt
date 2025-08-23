@@ -181,6 +181,7 @@ export const triggerRenderVideo = async (req, res) => {
     const customization = await Customization.findById(
       order.customizationId
     ).populate("_id");
+
     const org = customization.inputs;
 
     order.renderStatus = "rendering";
@@ -224,6 +225,10 @@ export const triggerRenderVideo = async (req, res) => {
       codec: "h264",
       maxRetries: 2,
       privacy: "public",
+      webhook: {
+        url: `${process.env.BACKEND_URL}/api/orders/webhook/render`,
+        secret: "asd",
+      },
       outName: {
         key: `renderTemplate/${(Math.random() + 1)
           .toString(36)
@@ -261,12 +266,12 @@ export const renderProgress = async (req, res) => {
 
     if (progress.done) {
       // Save final video and update status
-      const order = await Order.findOne({ renderId });
-      if (order) {
-        order.renderStatus = "completed";
-        order.videoUrl = progress.outputFile;
-        await order.save();
-      }
+      // const order = await Order.findOne({ renderId });
+      // if (order) {
+      //   order.renderStatus = "completed";
+      //   order.videoUrl = progress.outputFile;
+      //   await order.save();
+      // }
 
       return res.status(200).json({
         status: "success",
@@ -285,6 +290,33 @@ export const renderProgress = async (req, res) => {
     res.status(500).json({ error: "Failed to fetch render progress" });
   }
 };
+
+export const renderWebhook = async (req, res) => {
+  try {
+    const { renderId, outputFile, errors, fatalErrorEncountered } = req.body;
+
+    const order = await Order.findOne({ renderId });
+    if (!order) return res.status(404).json({ error: "Order not found" });
+
+    if (fatalErrorEncountered) {
+      order.renderStatus = "failed";
+      order.errorMessage = JSON.stringify(errors);
+      await order.save();
+      return res.status(500).json({ success: false });
+    }
+
+    // Finalize the order here
+    order.renderStatus = "completed";
+    order.videoUrl = outputFile;
+    await order.save();
+
+    res.status(200).json({ success: true });
+  } catch (error) {
+    console.error("Webhook error:", error);
+    res.status(500).json({ error: "Failed to handle render webhook" });
+  }
+};
+
 
 export const getUserOrderDetails = async (req, res) => {
   try {

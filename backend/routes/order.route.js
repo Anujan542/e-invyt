@@ -5,6 +5,7 @@ import {
   initiatePayHerePayment,
   renderProgress,
   triggerRenderVideo,
+  renderWebhook,
 } from "../controllers/order.controller.js";
 import { protectedAuth } from "../middleware/protectedAuth.js";
 
@@ -16,5 +17,6 @@ router.post("/payhere-notify", handlePayHereNotify);
 router.post("/render-template/:orderId", protectedAuth, triggerRenderVideo);
 router.post("/render", protectedAuth, renderProgress);
 router.get("/getOrder", protectedAuth, getUserOrderDetails);
+router.post("/webhook/render", renderWebhook);
 
 export default router;
