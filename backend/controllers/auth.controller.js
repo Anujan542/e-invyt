@@ -2,13 +2,13 @@ import bcrypt from "bcryptjs";
 import crypto from "crypto";
 
 import { User } from "../models/user.model.js";
-import { generateTokenAndSetCookie } from "../utils/generateTokenAndSetCookie.js";
 import {
   sendPasswordResetEmail,
   sendResetSuccessEmail,
   sendVerificationEmail,
   sendWelcomeEmail,
 } from "../utils/emails.js";
+import { generateToken } from "../utils/generateTokenAndSetCookie.js";
 
 export const signup = async (req, res) => {
   const { email, password, name } = req.body;
@@ -40,14 +40,17 @@ export const signup = async (req, res) => {
 
     await user.save();
 
+    const token = generateToken(user._id);
+
     // jwt token
-    generateTokenAndSetCookie(res, user._id);
+    // generateTokenAndSetCookie(res, user._id);
 
     await sendVerificationEmail(email, verificationToken);
 
     res.status(201).json({
       success: true,
       message: "User created successfully",
+      token,
       user: {
         ...user._doc,
         password: undefined,
@@ -112,7 +115,9 @@ export const login = async (req, res) => {
         .json({ success: false, message: "Invalid credentials" });
     }
 
-    generateTokenAndSetCookie(res, user._id);
+    const token = generateToken(user._id);
+
+    // generateTokenAndSetCookie(res, user._id);
 
     user.lastLogin = new Date();
 
@@ -120,6 +125,7 @@ export const login = async (req, res) => {
     res.status(200).json({
       success: true,
       message: "Logged in successfully",
+      token,
       user: {
         ...user._doc,
         password: undefined,
@@ -132,10 +138,14 @@ export const login = async (req, res) => {
 };
 
 export const logout = async (req, res) => {
-  res.clearCookie("token");
+  // res.clearCookie("token");
+  // res.status(200).json({
+  //   success: true,
+  //   message: "Successfully logout",
+  // });
   res.status(200).json({
     success: true,
-    message: "Successfully logout",
+    message: "Successfully logged out (discard token client-side)",
   });
 };
 
