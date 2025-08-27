@@ -44,7 +44,6 @@ export const initiatePayHerePayment = async (req, res) => {
     }
     const user = await User.findById(req.userId).select("-password");
 
-    // const amount = 50;
     const formattedAmount = amount.toFixed(2);
 
     const customizationExist = await Order.findOne({ customizationId });
